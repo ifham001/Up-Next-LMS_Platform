@@ -1,0 +1,1 @@
+ALTER TABLE "progress" ALTER COLUMN "watched_seconds" SET DATA TYPE double precision;

@@ -1,0 +1,37 @@
+{
+  "name": "pg",
+  "scripts": {
+    "dev": "bun --watch index.ts",
+    "generate": "drizzle-kit generate --config drizzle.config.ts",
+    "db:migrate": "drizzle-kit migrate --config drizzle.config.ts",
+    "db:studio": "PORT=4999 drizzle-kit studio --config drizzle.config.ts",
+    "seed": "bun run seed/seed.ts"
+  },
+  "dependencies": {
+    "@faker-js/faker": "^9.9.0",
+    "@google-cloud/storage": "^7.16.0",
+    "@types/bcrypt": "^5.0.2",
+    "@types/jsonwebtoken": "^9.0.10",
+    "bcrypt": "^6.0.0",
+    "bcryptjs": "^3.0.2",
+    "dotenv": "^17.2.1",
+    "drizzle-orm": "^0.44.3",
+    "fluent-ffmpeg": "^2.1.3",
+    "google-auth-library": "^10.1.0",
+    "hono": "^4.8.4",
+    "jwt": "^0.2.0",
+    "path": "^0.12.7",
+    "pg": "^8.16.3",
+    "puppeteer": "^24.16.0",
+    "twilio": "^5.7.3",
+    "url": "^0.11.4",
+    "uuid": "^11.1.0",
+    "zod": "^4.0.5"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "@types/pg": "^8.15.4",
+    "drizzle-kit": "^0.31.4",
+    "tsx": "^4.20.3"
+  }
+}
