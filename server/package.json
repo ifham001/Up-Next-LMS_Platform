@@ -1,7 +1,8 @@
 {
   "name": "pg",
   "scripts": {
-    "dev": "npm index.ts",
+    "start":"node index.js",
+    "dev": "node index.ts",
     "generate": "drizzle-kit generate --config drizzle.config.ts",
     "db:migrate": "drizzle-kit migrate --config drizzle.config.ts",
     "db:studio": "PORT=4999 drizzle-kit studio --config drizzle.config.ts",
