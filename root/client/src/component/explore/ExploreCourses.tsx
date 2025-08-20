@@ -60,7 +60,7 @@ const ExploreCourses = () => {
   useEffect(()=>{
     const fetchAllCourses = async()=>{
       const courses = await getAllCoursesApi(disptach,setIsLoading)
- 
+      
       if(courses.length>0){
         setAllCourse(courses)
       }

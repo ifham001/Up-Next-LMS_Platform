@@ -36,6 +36,7 @@ function Learning({}: Props) {
     const fetchCourse = async () => {
       setIsLoading(true)
       const userCourses = await getUserCourseApi(userId, dispatch, setIsLoading)
+      console.log(userCourses)
        if(userCourses.success){
         return setCourseDetail(userCourses.courseDetailWithUserProgress)
        }

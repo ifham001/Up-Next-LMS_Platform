@@ -12,10 +12,10 @@ type Props = {
 };
 
 const optionsForUser = [
-  { label: "Profile", href: "/profile" },
-  { label: "My Learning", href: "/my-learning" },
-  { label: "My Cart", href: "/my-cart" },
-  { label: "My Orders", href: "/my-orders" },
+  { label: "Profile", href: "/user/profile" },
+  { label: "My Learning", href: "/user/learning" },
+  { label: "My Cart", href: "/user/cart" },
+ 
   
 ];
 

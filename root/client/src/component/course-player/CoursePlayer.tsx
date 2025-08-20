@@ -58,6 +58,7 @@ export default function CoursePlayer({ courseId }: Props) {
         dispatch,
         setIsLoading
       );
+      
       if (data?.success && data.userCourseId) {
         setCourseContent(data);
       }
