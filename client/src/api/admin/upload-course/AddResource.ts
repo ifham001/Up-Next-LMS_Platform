@@ -26,7 +26,7 @@ export const addResourcesApi = async(formData:FormData,dispatch:AppDispatch,setI
             return dispatch(showNotification({message:"something went wrong ", type:"error"}))
 
         }
-    } catch (error) {
+    } catch {
         return dispatch(showNotification({message:"something went wrong ", type:"error"}))
 
     }

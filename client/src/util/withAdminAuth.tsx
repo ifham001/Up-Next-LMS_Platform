@@ -5,7 +5,6 @@ import Cookies from "js-cookie";
 import React from "react";
 import Loading from "@/ui/Loading";
 
-
 export function withAdminAuth<P extends object>(
   WrappedComponent: React.ComponentType<P>
 ) {
@@ -17,14 +16,18 @@ export function withAdminAuth<P extends object>(
       const token = Cookies.get("admin-token");
 
       if (!token) {
-        router.replace("/admin"); // avoids back navigation issue
+        router.replace("/admin"); // redirect if not logged in
       } else {
         setAuthorized(true);
       }
     }, [router]);
 
     if (!authorized) {
-      return <div><Loading/></div>;
+      return (
+        <div>
+          <Loading />
+        </div>
+      );
     }
 
     return <WrappedComponent {...props} />;
@@ -34,5 +37,5 @@ export function withAdminAuth<P extends object>(
     WrappedComponent.displayName || WrappedComponent.name || "Component"
   })`;
 
-  return ProtectedComponent;
+  return ProtectedComponent as React.FC<P>;
 }

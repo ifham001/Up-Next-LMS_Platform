@@ -23,7 +23,8 @@ export const getAllUsersDetails = async(dispatch:AppDispatch,setIsLoading:(isLoa
 
         }
         return data
-    } catch (error) {
+    } catch  {
+        
         return dispatch(showNotification({message:'Cannot fetch users data',type:'error'}))
 
     }

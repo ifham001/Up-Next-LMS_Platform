@@ -40,7 +40,7 @@ export const checkoutApi = async (
     } else {
       dispatch(showNotification({ message: resData.message || "Failed to purchase course, try again!", type: "error" }));
     }
-  } catch (error) {
+  } catch {
     
     dispatch(showNotification({ message: "Failed to purchase course, try again!", type: "error" }));
   } finally {

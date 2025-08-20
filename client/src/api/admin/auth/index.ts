@@ -24,6 +24,7 @@ try {
     }
     return data 
 } catch (error) {
+    console.log(error)
     return dispatch(showNotification({message:'Internal server Error',type:'error'}))
 
 }

@@ -38,7 +38,7 @@ export const createSectionApi = async (section: Section, dispatch: AppDispatch, 
        
     
 
-  } catch (error) {
+  } catch  {
     return dispatch(showNotification({ message: "Failed to create section", type: "error" }));
   }
   finally {
@@ -64,7 +64,7 @@ export const getSectionApi = async (courseId:string,setIsLoading: (isLoading: bo
         }else{
             return dispatch(showNotification({ message: "Failed to get section", type: "error" }));
         }
-    } catch (error) {
+    } catch {
         return dispatch(showNotification({ message: "Failed to get section", type: "error" }));
     }
     finally {
@@ -87,7 +87,7 @@ export const deleteSectionApi = async (sectionId: string, dispatch: AppDispatch,
         
         
         
-    } catch (error) {
+    } catch {
         return dispatch(showNotification({ message: "Failed to delete section", type: "error" }));
     }
     finally {
@@ -113,7 +113,7 @@ export const sectionFinalSubmitApi = async (sectionId: string, dispatch: AppDisp
         }
         return dispatch(showNotification({ message: "Failed to final submit section", type: "error" }));
 
-    } catch (error) {
+    } catch{
         return dispatch(showNotification({ message: "Failed to final submit section", type: "error" }));
     }
     finally {
@@ -145,7 +145,7 @@ export const getSectionItemListApi = async (sectionId: string, dispatch: AppDisp
       }
   
   
-    } catch (err) {
+    } catch {
       return dispatch(showNotification({message:"Failed to get section item list",type:"error"}))
     }
     finally{

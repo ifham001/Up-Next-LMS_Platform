@@ -1,12 +1,15 @@
+"use client"
 import React from 'react'
 import CourseContent from '@/component/course-detail/CourseContent'
 
 
 
-type Props = {}
+type Props = {
+  params:Promise<{courseId:string}>;
+}
 
-async function page({params}: {params: {courseId: string}}) {
-  const {courseId} = await params;
+async function page({params}: Props) {
+  const {courseId} =  React.use(params);
 
   return (
     <div> <CourseContent courseId={courseId}/> </div>

@@ -1,3 +1,4 @@
+"use client"
 import AddNewCourse from '@/component-admin/add-new-course/newCourse/AddNewCourse'
 import DraftCourseList from '@/component-admin/add-new-course/draftCourse/DrafterCourseList'
 import React from 'react'

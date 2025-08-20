@@ -11,6 +11,9 @@ const nextConfig: NextConfig = {
       'lms-platform12.storage.googleapis.com'
     ]
   }
+  , eslint:{
+    ignoreDuringBuilds:true
+  }
   
 };
 

@@ -21,9 +21,9 @@ export const getResourcesApi = async (resourceId: string) => {
       }
   
       return { success: true, data: data.data };
-    } catch (error: any) {
-      console.error("Error fetching resources:", error);
-      return { success: false, data: [], message: error.message || "Internal error" };
+    } catch {
+     
+      return { success: false, data: [], message:  "Internal error" };
     }
   };
   

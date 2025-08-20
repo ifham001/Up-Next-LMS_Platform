@@ -25,6 +25,7 @@ export const getDashBoardDataApi = async(dispatch:AppDispatch,setIsLoading:(isLo
         }
         return data
     } catch (error) {
+        console.log(error)
         return dispatch(showNotification({message:'failed to fetch',type:'error'}))
     }
     finally{

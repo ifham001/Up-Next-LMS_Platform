@@ -19,8 +19,8 @@ export const getuserCourseVideoApi = async(userCourseId:string,videoId:string,di
         if(data.success){
             return data
         }
-    } catch (error) {
-        return dispatch(showNotification({message:'something went wrong while fetching video',type:error}))
+    } catch  {
+        return dispatch(showNotification({message:'something went wrong while fetching video',type:'error'}))
     }
 }
 
@@ -36,7 +36,7 @@ export const updateVideoProgressApi = async(userCourseId:string,videoId:string,w
         })
         const data = await response.json()
       
-    } catch (error) {
-    return alert('cannnot aupdate progress')
+    } catch  {
+    return 
     }
 }

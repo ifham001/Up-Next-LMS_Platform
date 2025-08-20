@@ -57,7 +57,7 @@ setIsLoading(true)
       
     });
     const data = await response.json();
-    console.log(data)
+ 
     
     if (data.success) {
       console.log("success")
@@ -70,8 +70,8 @@ setIsLoading(true)
       }
 
 
-  } catch (error) {
-    console.log("error")
+  } catch  {
+   
     return dispatch(showNotification({ message: "Failed to create course", type: "error" }));
   }
   finally {

@@ -40,7 +40,7 @@ export const uploadVideoApi = async (
       }
       return dispatch(showNotification({message:'Video not submit try again!',type:"error"}))
       
-    } catch (error) {
+    } catch{
       return dispatch(showNotification({message:'Video not submit try again!',type:"error"}))
     }
     finally{
@@ -72,7 +72,7 @@ export const uploadVideoOnGcs =async(video:File ,dispatch:AppDispatch)=>{
     }
     return signedUrlData.signedUrl.url
   }
-  catch (error) {
+  catch {
   return dispatch(showNotification({message:'something went wrong try again' , type:"error"}))
 }
 

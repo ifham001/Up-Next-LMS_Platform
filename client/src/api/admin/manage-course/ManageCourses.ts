@@ -24,7 +24,8 @@ export const getlifeTimeCourseDetailApi = async(dispatch:AppDispatch,setIsLoadin
             return dispatch(showNotification({message:'failed to fetch course details',type:'error'}))
         }
         return data
-    } catch (error) {
+    } catch {
+       
         return dispatch(showNotification({message:'failed to fetch course details',type:'error'}))
     }
     finally{
@@ -66,7 +67,7 @@ export const deleteCourseApi = async (courseId:string ,dispatch:AppDispatch,setI
       }
       dispatch(showNotification({message:'failed first try delete all section then try again',type:'error'}))
 
-    } catch (error) {
+    } catch {
      return  dispatch(showNotification({message:'course delete went wrong try again!',type:'error'}))
 
     }

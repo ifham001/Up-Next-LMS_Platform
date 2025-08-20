@@ -19,7 +19,7 @@ export const getUserCourseApi = async(userId:string,dispatch:AppDispatch,setIsLo
                 return data
             }
             return []
-        } catch (error) {
+        } catch  {
             return dispatch(showNotification({message:'failed to fetch course',type:'error'}))
         }
         finally{
@@ -43,8 +43,8 @@ export const getUserCourseApi = async(userId:string,dispatch:AppDispatch,setIsLo
             }
             return dispatch(showNotification({message:'section item list not found '}))
           
-        } catch (error) {
-            console.log(error)
+        } catch  {
+            
             return dispatch(showNotification({message:"failed to fetch section item",type:"error"}))
         }
         finally{
@@ -69,8 +69,8 @@ export const getUserCourseApi = async(userId:string,dispatch:AppDispatch,setIsLo
         
             return dispatch(showNotification({message:'section item list not found '}))
           
-        } catch (error) {
-            console.log(error)
+        } catch {
+           
             return dispatch(showNotification({message:"failed to fetch section item",type:"error"}))
         }
         

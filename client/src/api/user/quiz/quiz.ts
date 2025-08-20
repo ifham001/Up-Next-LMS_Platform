@@ -22,9 +22,9 @@ export const getQuizApi = async (quizId: string) => {
       }
   
       return { success: true, data: data.data };
-    } catch (error: any) {
-      console.error("Error fetching quiz:", error);
-      return { success: false, data: null, message: error.message || "Internal error" };
+    } catch  {
+     
+      return { success: false, data: null, message:"Internal error" };
     }
   };
   

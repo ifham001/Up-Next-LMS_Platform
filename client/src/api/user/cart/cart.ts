@@ -31,7 +31,7 @@ try {
     
     return dispatch(showNotification({message:'Failed to add Course to cart',type:"error"}))
 
-} catch (error) {
+} catch  {
     return dispatch(showNotification({message:'Failed to add Course to cart',type:"error"}))
 
 }
@@ -56,7 +56,7 @@ export const showCartItemApi =async (userId:string,dispatch:AppDispatch,setIsLoa
         }
         return dispatch(showNotification({message:'Failed to add Course to cart',type:"error"}))
     
-    } catch (error) {
+    } catch{
         return dispatch(showNotification({message:'Failed to add Course to cart',type:"error"}))
     
     }
@@ -82,7 +82,7 @@ export const deleteItemApi =async (cartItemId:string,dispatch:AppDispatch,setIsL
         
         return dispatch(showNotification({message:'Failed to remove item to cart',type:"error"}))
     
-    } catch (error) {
+    } catch {
         return dispatch(showNotification({message:'Failed to remove item to cart',type:"error"}))
     
     }

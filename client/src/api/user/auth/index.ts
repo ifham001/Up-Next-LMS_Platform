@@ -41,7 +41,7 @@ export const createUser = async (user: User,dispatch: AppDispatch,setIsLoading: 
        
 
 
-    } catch (error) {
+    } catch  {
         return dispatch(showNotification({
             message: "Failed to create user",
             type: "error",

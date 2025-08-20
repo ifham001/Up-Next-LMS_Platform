@@ -12,7 +12,7 @@ function Homepage({}: Props) {
     <div>
       <HeroSection/>
       <TopCategories/>
-      {/* <CourseSlider/> */}
+      <CourseSlider/>
       <TestimonialSlider/>
       <ContactUs/>
     </div>

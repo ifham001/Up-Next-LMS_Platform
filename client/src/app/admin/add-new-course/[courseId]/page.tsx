@@ -1,18 +1,16 @@
-import React from 'react'
-import ManageSection from '@/component-admin/add-new-course/new-section/ManageSection'
-import { withAdminAuth } from '@/util/withAdminAuth';
+"use client";
 
-async function page({params}: {params: {courseId: string}}) { 
-    const {courseId} = await params;
-    
-  return (
-    <>
-    
-    <ManageSection courseId={courseId}/>
-    
-    
-    </>
-  )
+import ManageSection from "@/component-admin/add-new-course/new-section/ManageSection";
+import { withAdminAuth } from "@/util/withAdminAuth";
+import React from "react";
+
+interface Props {
+  params:Promise< { courseId: string }>;
 }
 
-export default withAdminAuth(page)
+const  Page:React.FC<Props>=({ params })=> {
+  const {courseId} = React.use(params)
+  return <ManageSection courseId={courseId} />;
+}
+
+export default withAdminAuth(Page);

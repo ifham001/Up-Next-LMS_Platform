@@ -24,6 +24,10 @@ export const createQuizApi = async (sectionId: string, quiz: Quiz, dispatch: App
         return dispatch(showNotification({message:"Failed to create quiz",type:"error"}))
     }
   }
+  catch{
+    return dispatch(showNotification({message:"Failed to create quiz",type:"error"}))
+
+  }
   finally{
     setIsLoading(false)
   }

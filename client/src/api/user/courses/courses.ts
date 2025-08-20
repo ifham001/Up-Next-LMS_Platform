@@ -16,7 +16,7 @@ try {
     }
     return data.course
     
-} catch (error) {
+} catch  {
     return  dispatch(showNotification({message:'fatching course failed try again', type:"error"}))
 
 }
@@ -36,7 +36,7 @@ export const getAllCoursesApi = async (dispatch:AppDispatch,setIsLoading: (isLoa
             return dispatch(showNotification({message:'failed to fetch course or courses not found ', type :'error'}))
         }
         return data.course
-    } catch (error) {
+    } catch {
         return dispatch(showNotification({message:'failed to fetch course or courses not found ', type :'error'}))
 
     }

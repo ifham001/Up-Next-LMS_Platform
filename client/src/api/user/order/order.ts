@@ -26,7 +26,7 @@ export const orderConfirmationApi = async (
       );
       return resData;
     }
-  } catch (error) {
+  } catch {
     dispatch(
       showNotification({ message: "Error fetching order confirmation", type: "error" })
     );

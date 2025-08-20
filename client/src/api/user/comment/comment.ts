@@ -33,9 +33,9 @@ export const addCommentApi = async (
       );
       return null;
     }
-  } catch (error) {
-    dispatch(showNotification({ message: "Something went wrong", type: "error" }));
-    return null;
+  } catch  {
+   return dispatch(showNotification({ message: "Something went wrong", type: "error" }));
+ 
   }
 };
 
@@ -69,9 +69,9 @@ export const replyCommentApi = async (
       );
       return null;
     }
-  } catch (error) {
-    dispatch(showNotification({ message: "Something went wrong", type: "error" }));
-    return null;
+  } catch {
+   return dispatch(showNotification({ message: "Something went wrong", type: "error" }));
+
   }
 };
 
@@ -92,8 +92,8 @@ export const getCommentsApi = async (videoId: string) => {
         return data
     }
     return [];
-  } catch (error) {
-    console.error(error);
+  } catch  {
+  
     return [];
   }
 };

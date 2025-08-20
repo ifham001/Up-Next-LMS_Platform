@@ -1,11 +1,15 @@
 import React from 'react'
 import ExploreCourses from '@/component/explore/ExploreCourses'
+import ClientOnly from '@/util/CilentOnly'
 
 type Props = {}
 
 function page({}: Props) {
   return (
-    <ExploreCourses/>
+    <ClientOnly>
+       <ExploreCourses/>
+    </ClientOnly>
+   
   )
 }
 
