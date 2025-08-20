@@ -9,7 +9,7 @@ import {uploadResourcesToGCS} from '../../util/gcs-upload'
 const resourceSchema = z.object({
     title:z.string(),
     description:z.string(),
-    resources:z.instanceof(File)
+    resources:z.any()
 })
 
 
