@@ -1,11 +1,11 @@
 {
   "name": "pg",
   "scripts": {
-    "dev": "bun --watch index.ts",
+    "dev": "npm index.ts",
     "generate": "drizzle-kit generate --config drizzle.config.ts",
     "db:migrate": "drizzle-kit migrate --config drizzle.config.ts",
     "db:studio": "PORT=4999 drizzle-kit studio --config drizzle.config.ts",
-    "seed": "bun run seed/seed.ts"
+    "seed": "npm run seed/seed.ts"
   },
   "dependencies": {
     "@faker-js/faker": "^9.9.0",
