@@ -1,1 +1,0 @@
-ALTER TABLE "user_courses" ADD COLUMN "complete_percent" integer DEFAULT 0;
