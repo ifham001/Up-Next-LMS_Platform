@@ -22,12 +22,15 @@ dotenv.config()
 const app = new Hono();
 
 // CORS middleware
-app.use(cors({
-    origin: process.env.FRONTEND_URL!,
+app.use(
+  '/*',
+  cors({
+    origin: 'https://up-next-lms-platform-bay.vercel.app', // your Vercel frontend
     allowMethods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowHeaders: ['Content-Type', 'Authorization'],
+    credentials: true, // only if you’re using cookies/auth headers
   })
-);
+)
 
 // Admin routes
 app.route('/admin', uploadCourse);
