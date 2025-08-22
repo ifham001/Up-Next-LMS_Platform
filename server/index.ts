@@ -10,7 +10,7 @@ const app = new Hono();
 
 // CORS middleware
 app.use(
-  '/*',
+
   cors({
     origin:'*', // your Vercel frontend
     allowMethods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
