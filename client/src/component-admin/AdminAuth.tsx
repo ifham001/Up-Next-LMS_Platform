@@ -41,7 +41,7 @@ function AdminAuth({}: Props) {
     }
     const login = await adminLogin(email,password,dispatch,setIsLoading)
     if(login.success){
-        Cookies.set('admin-token',login.token)
+      
         route.push('/admin/dashboard')
         return dispatch(showNotification({message:'login successfully',type:'success'}))
     }

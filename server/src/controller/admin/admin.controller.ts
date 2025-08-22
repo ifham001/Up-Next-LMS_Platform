@@ -35,7 +35,7 @@ export const adminLoggedIn = async (c: Context) => {
         return c.json({ message: "Invalid password" }, 401);
      }else{
         const token = await jwt.sign({ id: user.id }, process.env.JWT_SECRET ?? 'secret', { expiresIn: '1h' });
-        return c.json({ message: "User login successfully", token: token });
+        return c.json({ message: "User login successfully", token: token , success:true });
      }
 
 };

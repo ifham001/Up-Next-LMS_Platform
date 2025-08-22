@@ -1,5 +1,6 @@
 import { showNotification } from "@/store/slices/common/notification-slice";
 import { AppDispatch } from "@/store/Store";
+import Cookies from "js-cookie";
 
 const db = process.env.NEXT_PUBLIC_API_URL;
 
@@ -22,9 +23,10 @@ try {
         return dispatch(showNotification({message:'Failed to login',type:'error'}))
 
     }
-    return data 
+    Cookies.set('admin-token',data.token)
+    return data.success
 } catch (error) {
-    console.log(error)
+
     return dispatch(showNotification({message:'Internal server Error',type:'error'}))
 
 }
