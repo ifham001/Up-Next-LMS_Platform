@@ -53,16 +53,18 @@ export const uploadVideoApi = async (
 
 export const uploadVideoOnGcs =async(video:File ,dispatch:AppDispatch)=>{
 
+  
   try {
     // Step 1: Request signed URL from backend
-    const signedUrlRes = await fetch(`${db}/admin/signed-url-from-gcs?name=${encodeURIComponent(video.name),{
+   
+    const signedUrlRes = await fetch(`${db}/admin/signed-url-from-gcs?name=${encodeURIComponent(video.name)}`,{
       headers:{
         "Content-Type": "application/json",
           "Authorization": `Bearer ${Cookies.get('admin-token')}`,
-    }
-    }}`
-    );
+    },
+    });
     const signedUrlData = await signedUrlRes.json();
+
     
 
     if (!signedUrlData?.signedUrl?.url || !signedUrlData?.filePath) {

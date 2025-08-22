@@ -60,6 +60,7 @@ const UploadWithProgress: React.FC<UploadWithProgressProps> = ({
     setStatus("");
 
     try {
+    
       const signedUrl = await uploadVideoOnGcs(file, dispatch);
 
       const xhr = new XMLHttpRequest();

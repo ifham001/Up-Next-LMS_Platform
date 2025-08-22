@@ -25,6 +25,6 @@ uploadCourse.get("/get-section-item/:sectionId",authMiddleware,getSectionItemLis
 uploadCourse.get("/section-finalized/:sectionId",authMiddleware,sectionFinalized)
 uploadCourse.get("/course-finalized/:courseId",authMiddleware,finalizeCourse)
 uploadCourse.delete("/delete-course/:courseId",authMiddleware,toDeleteCourse)
-uploadCourse.get('/signed-url-from-gcs',authMiddleware,getSignedUrlToUploadVideo)
+uploadCourse.get('/signed-url-from-gcs',getSignedUrlToUploadVideo)
 
 export default uploadCourse;
