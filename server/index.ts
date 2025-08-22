@@ -53,7 +53,7 @@ app.route('/user', quiz);
 app.route('/user', resource);
 
 // Start server
-const PORT = 3021;
+const PORT = 3022;
 serve({
   fetch: app.fetch,
   port: PORT,

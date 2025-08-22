@@ -23,6 +23,7 @@ try {
         return dispatch(showNotification({message:'Failed to login',type:'error'}))
 
     }
+    
     Cookies.set('admin-token',data.token)
     return data.success
 } catch (error) {

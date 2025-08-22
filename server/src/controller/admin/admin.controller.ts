@@ -32,7 +32,7 @@ export const adminLoggedIn = async (c: Context) => {
     const { email, password } = loginUserSchema.parse(userData);
      const user = await adminLogin(email, password);
      if(!user?.id){
-        return c.json({ message: "Invalid password" }, 401);
+        return c.json({ message: "Invalid password",success:true }, 401);
      }else{
         const token = await jwt.sign({ id: user.id }, process.env.JWT_SECRET ?? 'secret', { expiresIn: '1h' });
         return c.json({ message: "User login successfully", token: token , success:true });

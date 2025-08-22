@@ -40,7 +40,7 @@ function AdminAuth({}: Props) {
       );
     }
     const login = await adminLogin(email,password,dispatch,setIsLoading)
-    if(login.success){
+    if(login){
       
         route.push('/admin/dashboard')
         return dispatch(showNotification({message:'login successfully',type:'success'}))
