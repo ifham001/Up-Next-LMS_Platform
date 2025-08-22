@@ -25,7 +25,7 @@ const app = new Hono();
 app.use(
   '/*',
   cors({
-    origin: 'https://up-next-lms-platform-bay.vercel.app', // your Vercel frontend
+    origin: [process.env.FRONTEND_URl!,process.env.LOCAL_URL!], // your Vercel frontend
     allowMethods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowHeaders: ['Content-Type', 'Authorization'],
     credentials: true, // only if you’re using cookies/auth headers
