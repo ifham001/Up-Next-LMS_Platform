@@ -12,7 +12,7 @@ async function page({ params }:{params:Promise<params>})  {
   const { orderId } = React.use(params); // ✅ unwrap the params Promise
 
   return (
-<ClientOnly> <OrderConfirmationPage orderId={orderId} /></ClientOnly>
+ <OrderConfirmationPage orderId={orderId} />
 
   )
   
