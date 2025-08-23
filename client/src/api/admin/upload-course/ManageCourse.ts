@@ -60,14 +60,15 @@ setIsLoading(true)
  
     
     if (data.success) {
-      console.log("success")
+     
       dispatch(showNotification({ message: "Course created successfully", type: "success" }));
       return  data.courseId }
       if(!data.success){
-        console.log("fail")
+     
         return dispatch(showNotification({ message: "Failed to create course", type: "error" }));
 
       }
+      return data
 
 
   } catch  {

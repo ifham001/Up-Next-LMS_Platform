@@ -4,14 +4,15 @@ import OrderConfirmationPage from "@/component/order-confirmation/OrderConfirm";
 import { withAuth } from "@/util/withAuth";
 import React from "react";
 
-type Props = {
-  params: Promise<{ orderId: string }>;
-};
+type params = { orderId: string };
 
-const Page: React.FC<Props> = ({ params }) => {
+
+async function page({ params }:{params:Promise<params>})  {
   const { orderId } = React.use(params); // ✅ unwrap the params Promise
 
   return <OrderConfirmationPage orderId={orderId} />;
 };
 
-export default withAuth(Page);
+export default withAuth(page);
+
+
