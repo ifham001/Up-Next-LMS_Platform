@@ -67,7 +67,7 @@ export default function SectionList({
           {sections?.map((section) => (
             <div key={section.id}>
               <button
-                className="w-full flex justify-between items-center bg-gray-500 text-white p-4 font-semibold hover:bg-gray-600"
+                className="w-full flex justify-between items-center bg-gray-600 text-white p-4 font-semibold hover:bg-gray-600"
                 onClick={() =>
                   setExpandedSection(expandedSection === section.id ? null : section.id)
                 }

@@ -6,18 +6,21 @@ import { courseProgress } from "../../queries/user/progress.queries";
 export const getUserCourses = async (c: Context) => {
   try {
     const userId = c.req.param("userId");
+    console.log('hi')
     if (!userId) {
       return c.json({ message: "userId not found", success: false });
     }
 
     const getCourses = await getAllUserCourses(userId);
+
     if (!getCourses.success ) {
       return c.json({ message: getCourses.message || "course not found", success: false });
     }
+    return c.json(getCourses)
 
 
-    return c.json(getCourses, 200);
   } catch (error) {
+    console.log(error)
     return c.json({ message: "Internal server error", success: false });
   }
 };

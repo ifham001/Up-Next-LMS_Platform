@@ -59,11 +59,13 @@ export const getSectionApi = async (courseId:string,setIsLoading: (isLoading: bo
             }
         })
         const data = await response.json();
+        
         if(data.success){
             return data.draftCourseSection
         }else{
             return dispatch(showNotification({ message: "Failed to get section", type: "error" }));
         }
+
     } catch {
         return dispatch(showNotification({ message: "Failed to get section", type: "error" }));
     }
@@ -107,7 +109,7 @@ export const sectionFinalSubmitApi = async (sectionId: string, dispatch: AppDisp
             }
         })
         const data = await response.json();
-        console.log(data)
+        
         if(data.success){
             return dispatch(showNotification({ message: "Section Submit Successfully", type: "success" }));
         }

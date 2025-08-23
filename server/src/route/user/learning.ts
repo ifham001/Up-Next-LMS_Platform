@@ -4,7 +4,7 @@ import { authMiddleware } from '../../util/authMiddleware'
 const userLearning = new Hono()
 
 
-userLearning.get('/user-courses/:userId',authMiddleware,getUserCourses)
+userLearning.get('/user-courses/:userId',getUserCourses)
 userLearning.post('/course-content',authMiddleware,getCourseContent)
 userLearning.get('/course-content/:itemId',authMiddleware,getItemContent)
 

@@ -23,7 +23,7 @@ export const getlifeTimeCourseDetailApi = async(dispatch:AppDispatch,setIsLoadin
         if(!data.success){
             return dispatch(showNotification({message:'failed to fetch course details',type:'error'}))
         }
-        return data
+       
     } catch {
        
         return dispatch(showNotification({message:'failed to fetch course details',type:'error'}))

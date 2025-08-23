@@ -87,10 +87,7 @@ export const finalizeCourse = async (c: Context) => {
     try {
         const courseId = await c.req.param('courseId');
         const course = await courseFinalize(courseId);
-        if(course.command){
-            return c.json({ message: 'Course completed successfully', success: true }, 200);
-        }
-        return c.json({ message:'Course cannot be submitted try again!', success: false}, 200);
+      c.json(course)
     } catch (error) {
         return c.json({ message:'Course cannot be submitted try again!', success: false}, 200);
 

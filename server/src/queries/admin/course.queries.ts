@@ -47,7 +47,13 @@ export const getDraftCourse = async () => {
   }
 
   export const courseFinalize = async (courseId: string) => {
-    return await dbDrizzle.update(course).set({ status: 'published' }).where(eq(course.id, courseId));
+    const checkSectionStatus = await dbDrizzle.select({status:section.section_status}).from(section).where(eq(section.course_id,courseId))
+
+    if(checkSectionStatus[0].status ==='in_progress'){
+      return {message:'Please complete the previous section before publish',success:false}
+    }
+     await dbDrizzle.update(course).set({ status: 'published' }).where(eq(course.id, courseId));
+      return {message:'Course publish successfully',success:true}
   };
 
   export const deleteCourse = async (courseId: string) => {

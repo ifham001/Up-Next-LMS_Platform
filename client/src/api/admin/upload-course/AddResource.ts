@@ -13,12 +13,14 @@ export const addResourcesApi = async(formData:FormData,dispatch:AppDispatch,setI
         const res = await fetch(`${db}/admin/add-resource/${sectionId}`,{
             method:"POST",
             body:formData,
+            
             headers:{
-                "Content-Type": "application/json",
+            
                   "Authorization": `Bearer ${Cookies.get('admin-token')}`,
             }
         })
         const data = await res.json()
+     
         if(data.success){
             return dispatch(showNotification({message:"resources add Successfully", type:"success"}))
         }

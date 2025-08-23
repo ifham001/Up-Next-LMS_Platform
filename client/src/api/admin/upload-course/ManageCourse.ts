@@ -119,7 +119,7 @@ export const getDraftCourses = async (setIsLoading: (isLoading: boolean) => void
           return data
         }
           
-          return dispatch(showNotification({ message: "Failed to publish course", type: "error" }));
+          return dispatch(showNotification({ message: data.message, type: "error" }));
     
         
     } catch (error) {

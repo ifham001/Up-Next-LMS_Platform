@@ -97,10 +97,11 @@ export const getCourseContentById = async (userId: string, courseId: string) => 
             watchedSeconds: Progress.watchedSeconds,
             duration: sectionItem.duration,
           })
-          .from(sectionItem)
+          .from(sectionItem).where(eq(sectionItem.section_id,sec.id))
           .leftJoin(
             Progress,
             and(
+              
               eq(Progress.videoId, sectionItem.item_id),
               eq(Progress.userCoursesId, user_courses[0].id) // ✅ DB uses plural
             )

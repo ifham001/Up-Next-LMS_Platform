@@ -27,13 +27,13 @@ export default function VideoEditor({ sectionId, onClose }: Props) {
   };
 
   const handleSubmit = async () => {
-    console.log('sdiuhasiduh')
+    
     if (!videoData) {
-      console.log(videoData)
+   
       return dispatch(showNotification({ message: "Video not uploaded", type: "error" }));
     }
     if (!videoDuration) {
-      console.log(videoDuration)
+   
       return dispatch(showNotification({ message: "Video duration not found", type: "error" }));
     }
 
@@ -43,7 +43,7 @@ export default function VideoEditor({ sectionId, onClose }: Props) {
       duration: videoDuration ?? null,
       url: videoData,
     };
-    console.log(payload)
+
 
     if (!sectionId) {
       return dispatch(showNotification({ message: "Section not found", type: "error" }));

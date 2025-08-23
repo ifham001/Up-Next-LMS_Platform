@@ -17,7 +17,7 @@ export default function QuizLessonItem({
   return (
     <div
       className={`flex items-center gap-3 p-3 cursor-pointer hover:bg-gray-50 ${
-        isActive ? "bg-blue-50" : ""
+        isActive ? "bg-yellow-200" : ""
       }`}
       onClick={onSelect}
     >

@@ -27,6 +27,7 @@ export const uploadResources = async(c:Context)=>{
     const parsed = resourceSchema.parse({title,description,resources})
     try {
         const uploadedResource = await uploadResourcesToGCS(parsed.resources)
+        console.log(uploadedResource)
         if(!uploadedResource){
             return c.json({success:false, message:'Failed to upload to gcs'})
         }

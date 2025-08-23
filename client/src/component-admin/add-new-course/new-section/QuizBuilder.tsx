@@ -110,7 +110,7 @@ export default function QuizBuilder({ sectionId, onClose }: Props) {
     const data = await createQuizApi(sectionId, quiz, dispatch, setIsLoading);
     onClose();
 
-    console.log("Saved Quiz:", quiz);
+   
     setIsOpen(false);
     setOptions([{ option: "", is_correct: false }, { option: "", is_correct: false }]);
     setQuestionText("");

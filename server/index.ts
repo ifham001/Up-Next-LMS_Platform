@@ -53,7 +53,7 @@ app.route('/user', quiz);
 app.route('/user', resource);
 
 // Start server
-const PORT = 3022;
+const PORT = 3029;
 serve({
   fetch: app.fetch,
   port: PORT,
@@ -64,5 +64,5 @@ console.log(`🚀 Hono server running on http://localhost:${PORT}`);
 // Graceful shutdown
 process.on('SIGINT', () => {
   console.log('Shutting down server...');
-  process.exit(0);
+  process.exit(1);
 });

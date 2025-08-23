@@ -1,19 +1,15 @@
-"use client"
-import React from 'react'
-import CourseContent from '@/component/course-detail/CourseContent'
 
 
+import CourseContent from '@/component/course-detail/CourseContent';
 
-type Props = {
-  params:Promise<{courseId:string}>;
-}
+type Params = { courseId: string };
 
-async function page({params}: Props) {
-  const {courseId} =  React.use(params);
+export default async function Page({ params }: { params: Params }) {
+  const { courseId } = await params;
 
   return (
-    <div> <CourseContent courseId={courseId}/> </div>
-  )
+    <div>
+      <CourseContent courseId={courseId} />
+    </div>
+  );
 }
-
-export default page
