@@ -17,8 +17,11 @@ async function page({ params }: { params: Promise<Params> }) {
     <div> 
       
    
+   <ClientOnly>
+   <CourseContent courseId={courseId}/>
+   </ClientOnly>
           
-      <CourseContent courseId={courseId}/>
+      
 
 
    
