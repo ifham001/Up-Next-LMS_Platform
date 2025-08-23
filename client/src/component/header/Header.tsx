@@ -13,7 +13,7 @@ import Avatar from "./Avatar";
 import { useRouter } from "next/navigation";
 import { userLogout } from "@/store/slices/user/userAuth-slice";
 import { useDispatch } from "react-redux";
-import logo from '../../../public/images/up_next.png'
+import logo from '../../../public/images/up_next.svg'
 import Image from "next/image";
 import { clearCart } from "@/store/slices/user/addToCart-slice";
 
@@ -60,7 +60,7 @@ export default function Header() {
         {/* Logo */}
         <div className="flex items-center space-x-2">
         
-          <span className="font-bold text-lg"><Image width={80} height={80} alt="sk" src={logo}/></span>
+          <span className="font-bold text-lg"><Image className="mt-5" width={120} height={120} alt="sk" src={logo}/></span>
         </div>
 
         {/* Desktop Links */}
