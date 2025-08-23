@@ -23,8 +23,11 @@ export default function VideoLessonItem({
       : 0;
 
   return (
+    <>
     <div
-      className={`flex flex-col cursor-pointer hover:bg-gray-50 p-3`}
+      className={`flex items-center  p-3 cursor-pointer hover:bg-gray-50 ${
+        isActive ? "bg-green-200" : ""
+      }`}
       onClick={onSelect}
     >
       <div className="flex items-center gap-3">
@@ -40,12 +43,14 @@ export default function VideoLessonItem({
       </div>
 
       {/* Progress bar */}
-      <div className="w-full h-1 bg-gray-200 mt-2 rounded">
+      
+    </div>
+    <div className="w-full h-1 bg-gray-200 rounded">
         <div
           className="h-1 bg-blue-500 rounded"
           style={{ width: `${percentWatched}%` }}
         ></div>
       </div>
-    </div>
+    </>
   );
 }
