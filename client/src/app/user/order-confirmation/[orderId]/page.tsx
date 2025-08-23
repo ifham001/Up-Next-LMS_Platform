@@ -1,18 +1,19 @@
-
+"use client"
 
 import OrderConfirmationPage from "@/component/order-confirmation/OrderConfirm";
 import ClientOnly from "@/util/CilentOnly";
 import { withAuth } from "@/util/withAuth";
 import React from "react";
 
-type params = { orderId: string };
+type Params = { orderId: string };
 
 
-async function page({ params }:{params:Promise<params>})  {
+async function page({ params }:{params:Promise<Params>})  {
   const { orderId } = React.use(params); // ✅ unwrap the params Promise
 
   return (
- <OrderConfirmationPage orderId={orderId} />
+    <ClientOnly>
+ <OrderConfirmationPage orderId={orderId} /></ClientOnly>
 
   )
   
@@ -22,4 +23,4 @@ async function page({ params }:{params:Promise<params>})  {
 
 export default page;
 
-
+ 
