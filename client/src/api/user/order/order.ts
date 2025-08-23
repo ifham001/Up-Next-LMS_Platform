@@ -19,7 +19,7 @@ export const orderConfirmationApi = async (
     });
 
     const resData = await response.json();
-
+    console.log(resData)
     if (!resData.success) {
       return dispatch(
         showNotification({ message: "Cannot make order!", type: "error" })

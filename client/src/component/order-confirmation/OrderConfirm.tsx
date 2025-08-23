@@ -31,9 +31,9 @@ export default function OrderConfirmationPage({ orderId }: Props) {
 
 
   const handleDownloadInvoice = () => {
-    if (item?.pdf) {
-      downloadPdf(item.pdf);
-    }
+    // if (item?.pdf) {
+    //   downloadPdf(item.pdf);
+    // }
   };
 
   function formatDate(dateString: string) {

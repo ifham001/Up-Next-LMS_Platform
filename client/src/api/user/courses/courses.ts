@@ -33,7 +33,7 @@ export const getAllCoursesApi = async (dispatch:AppDispatch,setIsLoading: (isLoa
         const data = await response.json()
 
         if(!data.success){
-            return dispatch(showNotification({message:'failed to fetch course or courses not found ', type :'error'}))
+            return 
         }
         return data.course
     } catch {
