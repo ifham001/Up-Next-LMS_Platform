@@ -1,11 +1,30 @@
-import CourseContent from '@/component/course-detail/CourseContent';
+"use client"
+import React from 'react'
+import CourseContent from '@/component/course-detail/CourseContent'
+import ClientOnly from '@/util/CilentOnly';
 
-export default async function Page({ params }: { params: { courseId: string } }) {
-  const { courseId } = params;
+
+
+
+type Params = {courseId:string};
+
+
+async function page({ params }: { params: Promise<Params> }) {
+  const {courseId} =  React.use(params);
 
   return (
-    <div>
-      <CourseContent courseId={courseId} />
-    </div>
-  );
+
+    <div> 
+      
+   
+          
+      <CourseContent courseId={courseId}/>
+
+
+   
+    
+       </div>
+  )
 }
+
+export default page
