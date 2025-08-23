@@ -20,6 +20,6 @@ async function page({ params }:{params:Promise<params>})  {
  
 };
 
-export default withAuth(page);
+export default page;
 
 
