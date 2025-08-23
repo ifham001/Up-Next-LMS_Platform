@@ -72,7 +72,8 @@ export const orderConfirm = async (c: Context) => {
     // });
 
   } catch (error) {
+
    
-    return c.json({ message: "Failed to fetch order detail", success: false });
+    return c.json({ message: error, success: false });
   }
 };
