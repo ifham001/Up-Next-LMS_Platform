@@ -1,4 +1,4 @@
-"use client";
+
 
 import OrderConfirmationPage from "@/component/order-confirmation/OrderConfirm";
 import ClientOnly from "@/util/CilentOnly";
