@@ -20,12 +20,13 @@ export const orderConfirmationApi = async (
 
     const resData = await response.json();
 
-    if (resData.success) {
-      dispatch(
-        showNotification({ message: "Order details fetched successfully!", type: "success" })
+    if (!resData.success) {
+      return dispatch(
+        showNotification({ message: "Cannot make order!", type: "error" })
       );
-      return resData;
+     
     }
+    return resData
   } catch {
     dispatch(
       showNotification({ message: "Error fetching order confirmation", type: "error" })
