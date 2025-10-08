@@ -15,7 +15,7 @@ export default function Button({
     "px-4 py-2 rounded font-medium transition-all duration-150 active:scale-95 focus:outline-none";
   const variantStyles = {
     primary:
-      "bg-[var(--color-brand)] text-[#F9FAFB] hover:opacity-90",
+      "text-[#F9FAFB] hover:opacity-90",
     secondary: "bg-gray-100 text-gray-800 hover:bg-gray-200 border-[var(--color-border)] border-1",
   };
 

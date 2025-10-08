@@ -36,7 +36,7 @@ const VideoThumbnail: React.FC<VideoThumbnailProps> = ({ thumbnailUrl, duration,
 
         {/* Play Icon Overlay */}
         <div className="absolute inset-0 flex items-center justify-center">
-          <div className="bg-gray-700 bg-opacity-50 rounded-full p-3 group-hover:bg-opacity-70 transition">
+          <div className="bg-[#8c52ff] bg-opacity-50 rounded-full p-3 group-hover:bg-opacity-70 transition">
             <Play size={32} className="text-white" />
           </div>
         </div>

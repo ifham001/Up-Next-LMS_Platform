@@ -45,11 +45,11 @@ const renderStars = (rating: number) => {
   const hasHalfStar = rating - fullStars >= 0.5;
 
   for (let i = 0; i < fullStars; i++) {
-    stars.push(<Star key={`star-${i}`} className="w-4 h-4 fill-black text-black" />);
+    stars.push(<Star key={`star-${i}`} className="w-4 h-4 fill-[#8c52ff] text-gray-700" />);
   }
 
   if (hasHalfStar) {
-    stars.push(<StarHalf key="half-star" className="w-4 h-4 fill-black text-black" />);
+    stars.push(<StarHalf key="half-star" className="w-4 h-4 fill-[#8c52ff] text-gray-700" />);
   }
 
   return <div className="flex mt-3">{stars}</div>;
@@ -57,23 +57,36 @@ const renderStars = (rating: number) => {
 
 const TestimonialSlider = () => {
   return (
-    <div className="bg-[#f9fafb] py-12 px-4 sm:px-6 lg:px-8">
+    <div className="py-12 px-4 sm:px-6 lg:px-8">
       <h2 className="text-3xl font-bold text-center mb-10">What Our Students Say</h2>
 
-      <div className="flex space-x-6 overflow-x-auto scrollbar-hide px-4">
+      <div 
+        className="flex space-x-6 overflow-x-auto px-4"
+        style={{
+          scrollbarWidth: 'none', /* Firefox */
+          msOverflowStyle: 'none', /* IE and Edge */
+        }}
+      >
+        <style jsx>{`
+          div::-webkit-scrollbar {
+            display: none; /* Chrome, Safari, Opera */
+          }
+        `}</style>
+        
         {testimonials.map((t, index) => (
           <div
             key={index}
             className="min-w-[300px] max-w-[380px] bg-white shadow rounded-xl p-6 flex-shrink-0"
           >
             <div className="flex items-center gap-4 mb-4">
-              <Image
+              <span className="w-8 h-8 bg-[#8c52ff] rounded-full"></span>
+              {/* <Image
                 src={t.image}
                 alt={t.name}
                 width={48}
                 height={48}
                 className="rounded-full object-cover"
-              />
+              /> */}
               <div>
                 <div className="font-semibold">{t.name}</div>
                 <div className="text-sm text-gray-500">{t.role}</div>

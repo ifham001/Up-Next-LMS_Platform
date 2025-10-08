@@ -13,7 +13,7 @@ import Avatar from "./Avatar";
 import { useRouter } from "next/navigation";
 import { userLogout } from "@/store/slices/user/userAuth-slice";
 import { useDispatch } from "react-redux";
-import logo from '../../../public/images/up_next.svg'
+
 import Image from "next/image";
 import { clearCart } from "@/store/slices/user/addToCart-slice";
 
@@ -56,17 +56,20 @@ export default function Header() {
 
   return (
     <ClientOnly>
-      <nav className="flex items-center justify-between h-10 mt-6 ml-15 mr-15 relative  s">
-        {/* Logo */}
+      <nav  className=" w-full items-center justify-between relative  ">
+
+
+
+        <div className="w-[95%] mx-auto flex h-20 mt-5 items-center justify-between px-6 py-3  relative ">
         <div className="flex items-center space-x-2">
         
-          <span className="font-bold text-lg"><Image className="mt-5" width={120} height={120} alt="sk" src={logo}/></span>
+          <span className=" w-10 h-10 bg-[#8c52ff] rounded-full"></span>
         </div>
 
-        {/* Desktop Links */}
-        <div className="hidden md:flex items-center space-x-8">
+
+        <div className="hidden text-sm md:flex items-center space-x-8">
           {manageOptions.map((opt) => (
-              <Link href={opt.href} key={opt.label} className="text-gray-700 hover:text-blue-600 transition">
+              <Link href={opt.href} key={opt.label} className="text-gray-700 hover:text-[#8c52ff] transition">
                 {opt.label}
               </Link>
             ))}
@@ -80,7 +83,7 @@ export default function Header() {
         <div className="relative">
     <ShoppingCart onClick={shoppingCartHandler} className="w-6 h-6 md:w-8 md:h-8" />
     {forNotification && (
-      <span className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-red-500 rounded-full"></span>
+      <span className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-[#8c52ff] rounded-full"></span>
     )}
   </div>
 
@@ -90,7 +93,7 @@ export default function Header() {
             <Avatar logoutHandler={logoutHandler} token={token} />
           ) : (
             <div>
-            <Button className="hidden md:block w-20 h-10">
+            <Button className="hidden md:block w-20 h-10 text-[#f5f5f5] text-sm bg-[#8c52ff]">
               <Link href="/auth">Login</Link>
               </Button>
               <Menu className="md:hidden" onClick={() => setMenuOpen(init=>!init)} />
@@ -105,7 +108,7 @@ export default function Header() {
 
       
      
-       
+               </div>
 
       </nav>
     </ClientOnly>

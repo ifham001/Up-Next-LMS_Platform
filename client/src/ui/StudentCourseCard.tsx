@@ -101,10 +101,10 @@ const StudentCourseCard: React.FC<Props> = ({
           <p className="text-xs text-right mt-1 text-muted-foreground">{progress}% completed</p>
         </div>
         <div className="flex flex-col  justify-center">
-  <Button onClick={()=>courseHandler()} className='w-full'>{progress?'Resume':'Start'}</Button>
+  <Button onClick={()=>courseHandler()} className='w-full bg-[#8c52ff]'>{progress?'Resume':'Start'}</Button>
   {progress === 100 && (
                   <Button
-                    className="w-full bg-white text-red-500 text-sm sm:text-base py-2 sm:py-3"
+                    className="w-full bg-[#8c52ff] text-red-500 text-sm sm:text-base py-2 sm:py-3"
                     onClick={() => setPopUp(true)}
                   >
                     Download Certificate

@@ -6,29 +6,29 @@ import { BookOpen, Briefcase, Palette, Brain } from 'lucide-react';
 const categories = [
   {
     title: 'Development',
-    icon: <BookOpen className="w-6 h-6" />,
+    icon: <BookOpen className="w-6 text-[#8c52ff] h-6" />,
     courses: '450+ Courses',
   },
   {
     title: 'Business',
-    icon: <Briefcase className="w-6 h-6" />,
+    icon: <Briefcase className="w-6 text-[#8c52ff] h-6" />,
     courses: '320+ Courses',
   },
   {
     title: 'Design',
-    icon: <Palette className="w-6 h-6" />,
+    icon: <Palette className="w-6 text-[#8c52ff] h-6" />,
     courses: '280+ Courses',
   },
   {
     title: 'Psychology',
-    icon: <Brain className="w-6 h-6" />,
+    icon: <Brain className="w-6 text-[#8c52ff] h-6" />,
     courses: '190+ Courses',
   },
 ];
 
 const TopCategories = () => {
   return (
-    <section className="bg-gray-50 py-16 px-4">
+    <section className="bg-white py-16 px-4">
       <div className="max-w-7xl mx-auto text-center">
         <h2 className="text-2xl md:text-3xl font-semibold mb-10">Explore Top Categories</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">

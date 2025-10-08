@@ -31,7 +31,7 @@ const CourseCard: React.FC<Props> = ({
   return (
     <>
     
-    <div className="min-w-[300px] max-w-[350px] rounded-xl overflow-hidden border bg-white shadow-md hover:shadow-lg transition-all duration-300 flex-shrink-0">
+    <div className="min-w-[300px] max-w-[350px] rounded-xl overflow-hidden  bg-white shadow-md hover:shadow-lg transition-all duration-300 flex-shrink-0">
       {/* Image container must be relative when using `fill` */}
       <div className="relative h-[180px] w-full">
         <Image
@@ -63,7 +63,7 @@ const CourseCard: React.FC<Props> = ({
         </div>
 
         <div className="flex items-center justify-between pt-2">
-          <div className="text-green-600 font-bold text-lg flex items-center gap-2">
+          <div className="text-[#8c52ff] font-bold text-lg flex items-center gap-2">
             ₹{price.toLocaleString()}
             <span className="text-sm text-slate-400 line-through">₹{actualPrice.toLocaleString()}</span>
           </div>

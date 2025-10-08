@@ -3,7 +3,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { CircleUserRound } from 'lucide-react';
 import Link from 'next/link';
-import Cookies from 'js-cookie';
 import { useRouter } from 'next/navigation';
 
 type Props = {
@@ -15,8 +14,6 @@ const optionsForUser = [
   { label: "Profile", href: "/user/profile" },
   { label: "My Learning", href: "/user/learning" },
   { label: "My Cart", href: "/user/cart" },
- 
-  
 ];
 
 function Avatar({ token, logoutHandler }: Props) {
@@ -30,7 +27,7 @@ function Avatar({ token, logoutHandler }: Props) {
     }
   };
 
-  const logout= () => {
+  const logout = () => {
     setIsOpen(false);
     logoutHandler();
   };
@@ -44,29 +41,31 @@ function Avatar({ token, logoutHandler }: Props) {
 
   return (
     <div className="relative" ref={menuRef}>
-      <button onClick={() => setIsOpen(!isOpen)} className="flex items-center space-x-2">
-        <CircleUserRound className="w-6 h-6 md:w-8 md:h-8 text-gray-700" />
+      <button onClick={() => setIsOpen(!isOpen)} className="flex items-center">
+        <CircleUserRound className="w-6 h-6 md:w-8 md:h-8 text-gray-700 hover:text-[#8c52ff] transition" />
       </button>
 
       {isOpen && (
-        <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-xl shadow-lg z-50">
+        <div className="absolute right-0 mt-2 w-48 bg-gray-700 border border-gray-600 rounded-lg shadow-lg z-50">
           <ul className="py-2">
             {optionsForUser.map((option) => (
               <li key={option.label}>
                 <Link
                   href={option.href}
-                  className="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-100 hover:text-blue-800 transition-colors"
+                  className="block px-4 py-2 text-sm text-white hover:bg-[#ff5e1a] hover:text-white transition-colors"
                   onClick={() => setIsOpen(false)}
                 >
                   {option.label}
                 </Link>
               </li>
-
             ))}
             <li onClick={logout}>
-                <Link href="/logout" className="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-100 hover:text-blue-800 transition-colors">
-                    Logout
-                </Link>
+              <Link 
+                href="/logout" 
+                className="block px-4 py-2 text-sm text-white hover:bg-[#ff5e1a] hover:text-white transition-colors"
+              >
+                Logout
+              </Link>
             </li>
           </ul>
         </div>
