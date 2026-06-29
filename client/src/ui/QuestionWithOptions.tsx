@@ -23,23 +23,44 @@ const QuestionWithOptions: React.FC<Props> = ({
   onChange,
 }) => {
   return (
-    <div className="mb-6">
-      <p className="text-lg font-medium mb-3">{question}</p>
-      <div className="flex flex-col gap-2">
-        {options.map((option) => (
-          <label key={option.value} className="flex items-center gap-2 cursor-pointer">
-            <input
-              type="radio"
-              name={name}
-              value={option.value}
-              checked={selectedValue === option.value}
-              onChange={() => onChange(option.value)}
-              className="accent-blue-500"
-              required
-            />
-            <span>{option.label}</span>
-          </label>
-        ))}
+    <div className="mb-8">
+      <h3 className="text-lg font-semibold tracking-tight text-text-primary mb-4">{question}</h3>
+      <div className="flex flex-col gap-3">
+        {options.map((option, idx) => {
+          const isSelected = selectedValue === option.value;
+          return (
+            <label
+              key={option.value}
+              className={`group flex items-center gap-3 cursor-pointer rounded-md border px-4 py-3.5 transition-colors duration-150 animate-fadeInUp ${
+                idx < 4 ? `delay-${idx + 1}` : ''
+              } ${
+                isSelected
+                  ? 'border-brand bg-brand-50 text-brand-dark'
+                  : 'border-border bg-surface text-text-secondary hover:border-border-strong hover:bg-surface-muted'
+              }`}
+            >
+              <span
+                className={`grid place-items-center size-5 shrink-0 rounded-full border transition-colors ${
+                  isSelected
+                    ? 'border-brand bg-brand'
+                    : 'border-border-strong bg-transparent'
+                }`}
+              >
+                {isSelected && <span className="size-2 rounded-full bg-text-inverted" />}
+              </span>
+              <input
+                type="radio"
+                name={name}
+                value={option.value}
+                checked={isSelected}
+                onChange={() => onChange(option.value)}
+                className="sr-only"
+                required
+              />
+              <span className="font-medium">{option.label}</span>
+            </label>
+          );
+        })}
       </div>
     </div>
   );

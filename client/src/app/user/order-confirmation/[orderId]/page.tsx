@@ -8,7 +8,7 @@ import React from "react";
 type Params = { orderId: string };
 
 
-async function page({ params }:{params:Promise<Params>})  {
+function page({ params }:{params:Promise<Params>})  {
   const { orderId } = React.use(params); // ✅ unwrap the params Promise
 
   return (

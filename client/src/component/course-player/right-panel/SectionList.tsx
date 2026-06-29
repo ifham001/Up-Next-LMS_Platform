@@ -51,41 +51,64 @@ export default function SectionList({
     }
   }, [sections, setCurrentLesson, currentLesson]);
 
- 
-    return (
-      <div className="w-full h-screen flex flex-col bg-white border-l border-gray-300">
-        {/* Fixed header */}
-        <h2 className="p-4 text-lg font-bold border-b border-gray-300 flex justify-between items-center">
-          <span>Course content</span>
-          <span className="text-sm font-normal text-gray-500">
-            {completePercent}% complete
+  return (
+    <div className="flex h-full w-full flex-col bg-surface">
+      {/* Fixed progress header */}
+      <div className="shrink-0 p-5">
+        <div className="mb-3 flex items-baseline justify-between gap-3">
+          <h2 className="text-base font-semibold tracking-tight text-text-primary">
+            Course content
+          </h2>
+          <span className="tnum shrink-0 text-sm font-semibold text-text-primary">
+            {completePercent}%
           </span>
-        </h2>
-    
-        {/* Scrollable section list */}
-        <div className="flex-1 overflow-y-auto">
-          {sections?.map((section) => (
-            <div key={section.id}>
+        </div>
+        <div className="bar-track h-1.5">
+          <div
+            className="bar-fill h-full transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]"
+            style={{ width: `${completePercent}%` }}
+          />
+        </div>
+      </div>
+
+      <div className="divider mx-5" />
+
+      {/* Scrollable section list */}
+      <div className="flex-1 overflow-y-auto p-3 space-y-2">
+        {sections?.map((section) => {
+          const isOpen = expandedSection === section.id;
+          return (
+            <div
+              key={section.id}
+              className="overflow-hidden rounded-lg border border-border"
+            >
               <button
-                className="w-full flex justify-between items-center bg-gray-600 text-white p-4 font-semibold hover:bg-gray-600"
+                className={`flex w-full items-center justify-between gap-2 px-4 py-3 text-left transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-accent/40 ${
+                  isOpen ? "bg-surface-muted text-text-primary" : "text-text-primary hover:bg-surface-muted"
+                }`}
                 onClick={() =>
-                  setExpandedSection(expandedSection === section.id ? null : section.id)
+                  setExpandedSection(isOpen ? null : section.id)
                 }
               >
-                Section {section.section_number}: {section.title}
-                {expandedSection === section.id ? (
-                  <ChevronUp size={18} />
+                <span className="leading-snug min-w-0">
+                  <span className="mb-0.5 block text-xs font-medium text-text-muted">
+                    Section {section.section_number}
+                  </span>
+                  <span className="text-sm font-medium">{section.title}</span>
+                </span>
+                {isOpen ? (
+                  <ChevronUp size={18} strokeWidth={1.75} className="shrink-0 text-text-secondary" />
                 ) : (
-                  <ChevronDown size={18} />
+                  <ChevronDown size={18} strokeWidth={1.75} className="shrink-0 text-text-muted" />
                 )}
               </button>
-    
-              {expandedSection === section.id && (
-                <div className="border-b border-gray-300">
+
+              {isOpen && (
+                <div className="space-y-1 px-2 pb-2">
                   {section.items.map((item) => {
                     const isActive = currentLesson?.id === item.id;
                     const onSelect = () => setCurrentLesson(item);
-    
+
                     if (item.content_type === "video") {
                       return (
                         <VideoLessonItem
@@ -118,9 +141,9 @@ export default function SectionList({
                 </div>
               )}
             </div>
-          ))}
-        </div>
+          );
+        })}
       </div>
-    );
-    
+    </div>
+  );
 }

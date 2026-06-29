@@ -23,7 +23,7 @@ const VideoThumbnail: React.FC<VideoThumbnailProps> = ({ thumbnailUrl, duration,
     <>
       {/* Thumbnail */}
       <div
-        className="relative w-full max-w-sm aspect-video rounded-lg overflow-hidden cursor-pointer group"
+        className="relative w-full max-w-sm aspect-video rounded-xl overflow-hidden cursor-pointer group border border-border shadow-sm hover:shadow-md transition-shadow duration-200"
         onClick={() => setIsOpen(true)}
       >
         <Image
@@ -36,8 +36,8 @@ const VideoThumbnail: React.FC<VideoThumbnailProps> = ({ thumbnailUrl, duration,
 
         {/* Play Icon Overlay */}
         <div className="absolute inset-0 flex items-center justify-center">
-          <div className="bg-[#8c52ff] bg-opacity-50 rounded-full p-3 group-hover:bg-opacity-70 transition">
-            <Play size={32} className="text-white" />
+          <div className="bg-brand/80 rounded-full p-3 group-hover:bg-brand transition-colors shadow-md">
+            <Play size={32} className="text-text-inverted" />
           </div>
         </div>
 
@@ -59,7 +59,7 @@ const VideoThumbnail: React.FC<VideoThumbnailProps> = ({ thumbnailUrl, duration,
           >
             {/* Close Button */}
             <button
-              className="absolute top-3 right-3 text-white hover:text-gray-300 p-2"
+              className="absolute top-3 right-3 text-white/90 hover:text-white p-2 transition-colors"
               onClick={() => setIsOpen(false)}
             >
               <X size={24} />

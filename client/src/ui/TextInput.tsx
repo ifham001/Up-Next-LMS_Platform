@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { AlertCircle } from "lucide-react";
 
 interface BaseProps {
   label: string;
@@ -23,21 +24,21 @@ const TextInput: React.FC<TextInputProps> = ({
 
   const showError = required && touched && value.trim() === "";
 
-  const commonClasses = `w-full px-4 py-2.5 rounded-md text-sm sm:text-base
-    bg-gray-50 text-gray-700 placeholder:text-gray-400
-    border transition-colors duration-200
-    focus:outline-none
+  const commonClasses = `w-full px-4 py-3 rounded-md text-sm sm:text-base
+    bg-input-bg text-text-primary placeholder:text-input-placeholder
+    border transition-colors duration-150
+    focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-bg
     ${
       showError
-        ? "border-red-500 focus:ring-2 focus:ring-red-500 focus:border-transparent"
-        : "border-gray-300 focus:ring-2 focus:ring-[#8c52ff] focus:border-transparent hover:border-[#8c52ff]"
+        ? "border-error focus-visible:ring-error/40"
+        : "border-input-border focus-visible:ring-accent/40 hover:border-border-strong"
     }
   `;
 
   return (
     <div className="flex flex-col gap-2">
-      <label className="text-sm font-medium text-gray-700">
-        {label} {required && <span className="text-red-500">*</span>}
+      <label className="text-sm font-medium text-text-secondary">
+        {label} {required && <span className="text-error">*</span>}
       </label>
 
       {textarea ? (
@@ -59,10 +60,8 @@ const TextInput: React.FC<TextInputProps> = ({
       )}
 
       {showError && (
-        <p className="text-xs sm:text-sm text-red-500 flex items-center gap-1">
-          <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-            <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
-          </svg>
+        <p className="text-xs sm:text-sm text-error flex items-center gap-1.5">
+          <AlertCircle className="w-4 h-4 shrink-0" strokeWidth={1.75} />
           This field is required.
         </p>
       )}

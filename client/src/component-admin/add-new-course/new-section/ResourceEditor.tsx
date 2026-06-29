@@ -1,10 +1,9 @@
 import React, { useState } from 'react'
 import TextInput from '@/ui/TextInput'
-import PopUpModal from '@/ui/PopUpModal'
-import Button from '@/ui/Button'
-import { BookOpen } from "lucide-react";
+import Button from '@/ui/Button';
 import Loading from '@/ui/Loading';
 import { useDispatch } from 'react-redux';
+import { showNotification } from '@/store/slices/common/notification-slice';
 import { addResourcesApi } from '@/api/admin/upload-course/AddResource';
 
 
@@ -19,7 +18,6 @@ import { addResourcesApi } from '@/api/admin/upload-course/AddResource';
 function ResourceEditor({sectionId, onClose}: Props) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [url, setUrl] = useState("");
   const [pdf, setPdf] = useState<File | null>(null);
   const [isLoading,setIsLoading] = useState(false)
 
@@ -33,7 +31,7 @@ function ResourceEditor({sectionId, onClose}: Props) {
 
   const handleSubmit = async () => {
     if (!title.trim() || !description.trim()) {
-      alert("Title and description are required!");
+      dispatch(showNotification({ message: "Title and description are required", type: "error" }));
       return;
     }
     const formData = new FormData()
@@ -58,63 +56,55 @@ function ResourceEditor({sectionId, onClose}: Props) {
     <>
      
 
-        <div className="space-y-4 p-4">
+        <div className="space-y-5 p-4">
+          <div>
+            <h1 className="text-xl font-semibold tracking-tight text-text-primary">
+              Add resource
+            </h1>
+            <p className="mt-1 text-sm text-text-secondary">
+              Attach a PDF or supporting material for this section.
+            </p>
+          </div>
+
           <TextInput
-            label="Resource Title"
-            placeholder="Enter resource name"
+            label="Resource title"
+            placeholder="Resource name"
             state={[title, setTitle]}
             required
           />
 
           {/* Bigger multiline input for description */}
           <div>
-            
             <TextInput
               value={description}
-              label='Resource Description'
+              label='Resource description'
               state={[description,setDescription]}
-              placeholder="Enter resource description"
-              className="w-full p-2 border rounded min-h-[100px] resize-y"
+              placeholder="Describe this resource"
+              className="min-h-[100px] w-full resize-y"
               required
               textarea={true}
             />
           </div>
 
-          {/* URL input */}
-          {/* <TextInput
-            label="Resource URL"
-            placeholder="Enter resource link"
-            state={[url, setUrl]}
-          /> */}
-
           {/* PDF upload */}
-          <div>
-            <label className="block text-sm font-medium mb-1">Attach PDF</label>
+          <div className="rounded-lg border border-border bg-surface-muted p-4">
+            <label className="mb-1.5 block text-sm font-medium text-text-secondary">Attach PDF</label>
             <input
               type="file"
               accept="application/pdf"
               onChange={handlePdfUpload}
-              className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
+              className="block w-full rounded-lg border border-dashed border-border-strong bg-surface p-3 text-sm text-text-secondary transition-colors hover:border-border-strong file:mr-4 file:rounded-full file:border-0 file:bg-brand file:px-4 file:py-2 file:text-sm file:font-medium file:text-text-inverted hover:file:bg-brand-light"
             />
-            {pdf && <p className="text-xs mt-1">Selected: {pdf.name}</p>}
+            {pdf && <p className="mt-1.5 text-xs text-text-muted">Selected: {pdf.name}</p>}
           </div>
-            <div className='flex justify-between'>
-            <Button
-            onClick={onClose}
-            className="bg-red-600 text-white mt-4"
-          >
-            Cancel
-          </Button>
-          
-          <Button
-            onClick={handleSubmit}
-            className="bg-green-600 text-white mt-4"
-          >
-            Save Resource
-          </Button>
-
-            </div>
-          
+          <div className="flex justify-end gap-3 pt-2">
+            <Button variant="ghost" onClick={onClose}>
+              Cancel
+            </Button>
+            <Button onClick={handleSubmit}>
+              Save resource
+            </Button>
+          </div>
         </div>
 
     </>

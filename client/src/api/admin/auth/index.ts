@@ -16,15 +16,12 @@ try {
         }
     })
     const data = await response.json()
-    if(!response.ok){
-        return dispatch(showNotification({message:'Failed to login',type:'error'}))
+    if(!response.ok || !data.success || !data.data?.token){
+        return dispatch(showNotification({message: data?.message || 'Incorrect email or password',type:'error'}))
     }
-    if(!data.success){
-        return dispatch(showNotification({message:'Failed to login',type:'error'}))
 
-    }
-    
-    Cookies.set('admin-token',data.token)
+    // Server returns the canonical envelope: { success, message, data: { token } }
+    Cookies.set('admin-token',data.data.token)
     return data.success
 } catch (error) {
 

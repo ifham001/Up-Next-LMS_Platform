@@ -1,17 +1,20 @@
 'use client';
 import React from 'react';
 
-interface Props{
-  description:string
+interface Props {
+  description: string;
 }
 
-const CourseDescription = ({description}:Props) => {
+const CourseDescription = ({ description }: Props) => {
   return (
-    <div className="space-y-2">
-      <h3 className="text-xl font-semibold">Description</h3>
-      <p className="text-gray-700">
-{ description?description:'Welcome to the Complete Web Development Bootcamp, the only course you need to learn web development in 2025. With over 42 hours of content, this comprehensive course covers everything you need to know to become a professional web developer.'}      </p>
-    </div>
+    <section className="animate-fadeInUp space-y-4">
+      <h2 className="display text-2xl text-text-primary">About this course</h2>
+      <p className="max-w-[65ch] leading-relaxed text-text-secondary">
+        {description
+          ? description
+          : 'This bootcamp covers everything you need to become a working web developer, with over 40 hours of content. You will build real projects, learn the fundamentals deeply, and practice the same workflows used on production teams.'}
+      </p>
+    </section>
   );
 };
 

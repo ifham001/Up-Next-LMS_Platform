@@ -2,7 +2,7 @@
 
 import { formatTime } from "@/util";
 import { Items } from "./SectionList";
-import { SquareLibrary } from "lucide-react";
+import { Check, PlayCircle } from "lucide-react";
 
 
 interface VideoLessonItemProps {
@@ -23,34 +23,41 @@ export default function VideoLessonItem({
       : 0;
 
   return (
-    <>
     <div
-      className={`flex items-center  p-3 cursor-pointer hover:bg-gray-50 ${
-        isActive ? "bg-green-200" : ""
+      className={`group cursor-pointer rounded-md border-l-2 px-3 py-2.5 transition-colors ${
+        isActive
+          ? "border-brand bg-brand-50 text-brand-dark"
+          : "border-transparent hover:bg-surface-muted"
       }`}
       onClick={onSelect}
     >
       <div className="flex items-center gap-3">
-    <SquareLibrary/>
-        <div className="flex flex-col flex-1">
-          <span className="text-sm font-medium">{item.title}</span>
+        {item.completed ? (
+          <Check size={18} strokeWidth={1.75} className="text-success shrink-0" />
+        ) : (
+          <PlayCircle
+            size={18}
+            strokeWidth={1.75}
+            className={`shrink-0 transition-colors ${isActive ? "text-brand" : "text-text-muted group-hover:text-text-secondary"}`}
+          />
+        )}
+        <div className="flex flex-1 flex-col gap-0.5 min-w-0">
+          <span className={`text-sm font-medium leading-snug truncate ${isActive ? "text-brand-dark" : "text-text-primary"}`}>
+            {item.title}
+          </span>
           {item.duration && (
-            <span className="text-xs text-gray-500">
-              {`${formatTime(item.watchedSeconds)}/${formatTime(item.duration)})`}
+            <span className={`tnum text-xs ${isActive ? "text-brand-dark/70" : "text-text-muted"}`}>
+              {`${formatTime(item.watchedSeconds)} / ${formatTime(item.duration)}`}
             </span>
           )}
         </div>
       </div>
-
-      {/* Progress bar */}
-      
-    </div>
-    <div className="w-full h-1 bg-gray-200 rounded">
+      <div className="bar-track mt-2 h-1">
         <div
-          className="h-1 bg-blue-500 rounded"
+          className="bar-fill h-1 transition-all duration-300"
           style={{ width: `${percentWatched}%` }}
-        ></div>
+        />
       </div>
-    </>
+    </div>
   );
 }

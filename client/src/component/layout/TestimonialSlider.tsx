@@ -1,8 +1,7 @@
 'use client';
 
 import React from 'react';
-import { Star, StarHalf } from 'lucide-react';
-import Image from 'next/image';
+import { Star, StarHalf, Quote } from 'lucide-react';
 
 type Testimonial = {
   name: string;
@@ -16,9 +15,9 @@ const testimonials: Testimonial[] = [
   {
     name: 'Alex Thompson',
     role: 'Web Developer',
-    image: '/avatars/alex.png', // Replace with your actual image path
+    image: '/avatars/alex.png',
     feedback:
-      'The courses on LMS UI Elegance have completely transformed my career. The instructors are knowledgeable and the content is up-to-date with industry standards.',
+      'The courses changed how I work. The instructors know their field and the material keeps pace with what teams actually use.',
     rating: 5,
   },
   {
@@ -26,7 +25,7 @@ const testimonials: Testimonial[] = [
     role: 'UX Designer',
     image: '/avatars/emily.png',
     feedback:
-      "I've taken several design courses and the quality of instruction is exceptional. The platform is intuitive and makes learning enjoyable.",
+      'I have taken several design courses here. The instruction is clear and the platform stays out of the way while you learn.',
     rating: 4.5,
   },
   {
@@ -34,7 +33,7 @@ const testimonials: Testimonial[] = [
     role: 'Marketing Specialist',
     image: '/avatars/david.png',
     feedback:
-      'The digital marketing courses helped me double my client base in just three months. The practical approach and case studies were incredibly valuable.',
+      'The marketing track helped me grow my client base in a few months. The case studies were the most useful part.',
     rating: 5,
   },
 ];
@@ -45,59 +44,59 @@ const renderStars = (rating: number) => {
   const hasHalfStar = rating - fullStars >= 0.5;
 
   for (let i = 0; i < fullStars; i++) {
-    stars.push(<Star key={`star-${i}`} className="w-4 h-4 fill-[#8c52ff] text-gray-700" />);
+    stars.push(<Star key={`star-${i}`} className="size-4 fill-brand text-brand" strokeWidth={1.75} />);
   }
 
   if (hasHalfStar) {
-    stars.push(<StarHalf key="half-star" className="w-4 h-4 fill-[#8c52ff] text-gray-700" />);
+    stars.push(<StarHalf key="half-star" className="size-4 fill-brand text-brand" strokeWidth={1.75} />);
   }
 
-  return <div className="flex mt-3">{stars}</div>;
+  return (
+    <div className="flex items-center gap-2">
+      <div className="flex gap-0.5">{stars}</div>
+      <span className="font-display text-sm font-semibold text-text-primary tnum">
+        {rating.toFixed(1)}
+      </span>
+    </div>
+  );
 };
 
 const TestimonialSlider = () => {
   return (
-    <div className="py-12 px-4 sm:px-6 lg:px-8">
-      <h2 className="text-3xl font-bold text-center mb-10">What Our Students Say</h2>
+    <section className="px-4 sm:px-6 lg:px-8 py-20">
+      <div className="mx-auto max-w-[1400px]">
+        <div className="mb-10 max-w-2xl animate-fadeInUp">
+          <span className="eyebrow">In their words</span>
+          <h2 className="display mt-3 text-3xl font-semibold text-text-primary md:text-4xl">
+            What learners say
+          </h2>
+        </div>
 
-      <div 
-        className="flex space-x-6 overflow-x-auto px-4"
-        style={{
-          scrollbarWidth: 'none', /* Firefox */
-          msOverflowStyle: 'none', /* IE and Edge */
-        }}
-      >
-        <style jsx>{`
-          div::-webkit-scrollbar {
-            display: none; /* Chrome, Safari, Opera */
-          }
-        `}</style>
-        
-        {testimonials.map((t, index) => (
-          <div
-            key={index}
-            className="min-w-[300px] max-w-[380px] bg-white shadow rounded-xl p-6 flex-shrink-0"
-          >
-            <div className="flex items-center gap-4 mb-4">
-              <span className="w-8 h-8 bg-[#8c52ff] rounded-full"></span>
-              {/* <Image
-                src={t.image}
-                alt={t.name}
-                width={48}
-                height={48}
-                className="rounded-full object-cover"
-              /> */}
-              <div>
-                <div className="font-semibold">{t.name}</div>
-                <div className="text-sm text-gray-500">{t.role}</div>
-              </div>
-            </div>
-            <p className="text-sm text-gray-800 leading-relaxed">"{t.feedback}"</p>
-            {renderStars(t.rating)}
-          </div>
-        ))}
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+          {testimonials.map((t, index) => (
+            <figure
+              key={index}
+              className={`card-interactive flex flex-col p-6 animate-fadeInUp delay-${index + 1}`}
+            >
+              <Quote className="size-7 text-brand" strokeWidth={1.75} />
+              <blockquote className="mt-4 text-base leading-relaxed text-text-primary">
+                {t.feedback}
+              </blockquote>
+              <div className="mt-5">{renderStars(t.rating)}</div>
+              <figcaption className="mt-auto flex items-center gap-3 pt-6">
+                <span className="flex size-10 shrink-0 items-center justify-center rounded-full bg-brand-50 font-display text-sm font-bold text-brand-dark">
+                  {t.name.charAt(0)}
+                </span>
+                <div>
+                  <div className="text-sm font-medium text-text-primary">{t.name}</div>
+                  <div className="text-sm text-text-muted">{t.role}</div>
+                </div>
+              </figcaption>
+            </figure>
+          ))}
+        </div>
       </div>
-    </div>
+    </section>
   );
 };
 

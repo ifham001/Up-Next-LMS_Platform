@@ -3,6 +3,7 @@
 import { RootState } from '@/store/Store';
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
+import Button from '@/ui/Button';
 
 const ProfileForm = () => {
   const { username } = useSelector((state: RootState) => state.userAuth);
@@ -22,40 +23,49 @@ const ProfileForm = () => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
+  const inputClass =
+    'w-full rounded-md border border-input-border bg-input-bg text-text-primary placeholder:text-input-placeholder px-3 py-2 transition-colors focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/30';
+  const labelClass = 'text-sm font-medium text-text-primary block mb-1.5';
+
   return (
     <div className="max-w-2xl">
-      <h2 className="text-2xl font-semibold mb-6">Public profile</h2>
-      <p className="text-sm text-gray-500 mb-6">Add information about yourself</p>
+      <div className="mb-8">
+        <span className="eyebrow">Account</span>
+        <h2 className="display text-2xl text-text-primary mt-3">
+          Public <span className="text-accent">profile</span>
+        </h2>
+        <p className="text-sm text-text-secondary leading-relaxed mt-2">Add information about yourself.</p>
+      </div>
 
-      <div className="space-y-4">
+      <div className="space-y-5">
         {/* Basics */}
         <div>
-          <label className="text-sm font-medium block mb-1">First name</label>
+          <label className={labelClass}>First name</label>
           <input
             name="firstName"
             value={form.firstName}
             onChange={handleChange}
-            className="w-full border rounded-md px-3 py-2"
+            className={inputClass}
           />
         </div>
 
         <div>
-          <label className="text-sm font-medium block mb-1">Last name</label>
+          <label className={labelClass}>Last name</label>
           <input
             name="lastName"
             value={form.lastName}
             onChange={handleChange}
-            className="w-full border rounded-md px-3 py-2"
+            className={inputClass}
           />
         </div>
 
         <div>
-          <label className="text-sm font-medium block mb-1">Headline</label>
+          <label className={labelClass}>Headline</label>
           <input
             name="headline"
             value={form.headline}
             onChange={handleChange}
-            className="w-full border rounded-md px-3 py-2"
+            className={inputClass}
             placeholder='e.g. "Instructor at Udemy"'
             maxLength={60}
           />
@@ -63,28 +73,28 @@ const ProfileForm = () => {
 
         {/* Biography */}
         <div>
-          <label className="text-sm font-medium block mb-1">Biography</label>
+          <label className={labelClass}>Biography</label>
           <textarea
             name="biography"
             value={form.biography}
             onChange={handleChange}
             rows={4}
-            className="w-full border rounded-md px-3 py-2"
+            className={`${inputClass} resize-y`}
             placeholder="Write a short bio (no links or codes)"
           />
-          <p className="text-xs text-gray-400 mt-1">
+          <p className="text-xs text-text-muted mt-1.5">
             Links and coupon codes are not permitted in this section.
           </p>
         </div>
 
         {/* Language */}
         <div>
-          <label className="text-sm font-medium block mb-1">Language</label>
+          <label className={labelClass}>Language</label>
           <select
             name="language"
             value={form.language}
             onChange={handleChange}
-            className="w-full border rounded-md px-3 py-2"
+            className={inputClass}
           >
             <option>English (US)</option>
             <option>English (UK)</option>
@@ -95,19 +105,19 @@ const ProfileForm = () => {
 
         {/* Links */}
         <div>
-          <label className="text-sm font-medium block mb-1">Website</label>
+          <label className={labelClass}>Website</label>
           <input
             name="website"
             value={form.website}
             onChange={handleChange}
             placeholder="Website (http://...)"
-            className="w-full border rounded-md px-3 py-2"
+            className={inputClass}
           />
         </div>
 
-        <button className="mt-4 bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700 transition">
-          Save Profile
-        </button>
+        <div className="pt-2">
+          <Button variant="primary">Save profile</Button>
+        </div>
       </div>
     </div>
   );

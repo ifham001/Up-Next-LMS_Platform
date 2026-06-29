@@ -80,85 +80,64 @@ export default function OrderConfirmationPage({ orderId }: Props) {
   
     if (isLoading&&item.total===0) {
       return (
-        <div className="min-h-screen bg-gray-50 flex flex-col items-center justify-center px-6">
-          {/* Loader Container */}
-          <div className="bg-white rounded-2xl shadow-lg p-8 max-w-md w-full text-center animate-fadeIn">
-            
-            {/* Animated Icon */}
-            <div className="flex justify-center mb-6">
-              <div className="relative w-16 h-16">
-                <div className="absolute inset-0 border-4 border-blue-200 rounded-full"></div>
-                <div className="absolute inset-0 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
-              </div>
-            </div>
-    
-            {/* Title */}
-            <h1 className="text-xl font-bold text-gray-800 mb-2">
-              Confirming Your Order
-            </h1>
-    
-            {/* Subtitle */}
-            <p className="text-gray-600 mb-6">
-              Please wait while we prepare your courses & generate your invoice.
+        <div className="min-h-screen flex flex-col items-center justify-center px-4 sm:px-6 py-16">
+          <div className="card p-8 sm:p-10 max-w-md w-full animate-fadeInUp">
+            <div className="skeleton h-10 w-10 rounded-full mb-7"></div>
+
+            <h1 className="display text-2xl mb-3">Confirming your order</h1>
+            <p className="text-text-secondary leading-relaxed mb-7 max-w-[65ch]">
+              We&apos;re preparing your courses and generating your invoice.
             </p>
-    
-            {/* Animated Progress Bar */}
-            <div className="w-full bg-gray-200 rounded-full h-3 overflow-hidden">
-              <div className="bg-blue-500 h-full w-1/3 animate-progress"></div>
-            </div>
-    
-            {/* Skeleton Summary */}
-            <div className="mt-6 space-y-3 text-left">
-              <div className="h-4 bg-gray-200 rounded w-3/4 animate-pulse"></div>
-              <div className="h-4 bg-gray-200 rounded w-1/2 animate-pulse"></div>
-              <div className="h-4 bg-gray-200 rounded w-2/3 animate-pulse"></div>
+
+            <div className="space-y-3">
+              <div className="skeleton h-4 rounded w-3/4"></div>
+              <div className="skeleton h-4 rounded w-1/2"></div>
+              <div className="skeleton h-4 rounded w-2/3"></div>
             </div>
           </div>
         </div>
       );
     }
-  
+
 
   return (
     <ClientOnly>
-    <div className="min-h-screen bg-gray-50 flex flex-col items-center justify-center px-4">
-      {/* Card */}
-      <div className="bg-white rounded-2xl shadow-lg p-8 max-w-lg w-full text-center">
-        {/* Success Icon */}
-        <div className="flex justify-center mb-6">
-          <CheckCircle className="w-20 h-20 text-green-500" />
+    <div className="min-h-screen flex flex-col items-center justify-center px-4 sm:px-6 py-16 lg:py-20">
+      <div className="card p-8 sm:p-10 max-w-lg w-full animate-fadeInUp">
+        {/* Calm success check — no glow */}
+        <div className="flex h-12 w-12 items-center justify-center rounded-full bg-success-soft border border-border mb-6">
+          <CheckCircle className="w-6 h-6 text-success" strokeWidth={1.75} />
         </div>
 
-        {/* Title */}
-        <h1 className="text-2xl font-bold text-gray-800 mb-2">
-          Order Confirmed 🎉
+        <span className="eyebrow mb-4">Order confirmed</span>
+        <h1 className="display text-3xl sm:text-4xl mb-3">
+          You&apos;re <span className="text-accent">enrolled</span>
         </h1>
 
-        {/* Subtitle */}
-        <p className="text-gray-600 mb-6">
-          Thank you for your purchase! Your courses are now available in your
-          dashboard.
+        <p className="text-text-secondary leading-relaxed max-w-[65ch] mb-8">
+          Your order is complete. Your courses are now available in your dashboard.
         </p>
 
-        {/* Order Details */}
-        <div className="bg-gray-50 rounded-xl p-4 text-left mb-6">
-          <h2 className="font-semibold text-gray-800 mb-2">Order Summary</h2>
-          <div className="space-y-2 text-gray-600">
-            <div className="flex justify-between">
-              <span>Order ID</span>
-              <span className="font-medium">#{orderId}</span>
+        {/* Receipt — flat inset card */}
+        <div className="rounded-md border border-border bg-surface-muted p-5 mb-6">
+          <h2 className="text-sm font-semibold text-text-primary mb-4">Receipt</h2>
+          <div className="space-y-3 text-sm">
+            <div className="flex justify-between items-center">
+              <span className="text-text-secondary">Order ID</span>
+              <span className="chip tnum">#{orderId}</span>
             </div>
             <div className="flex justify-between">
-              <span>Purchase Date</span>
-              <span className="font-medium">
+              <span className="text-text-secondary">Purchase date</span>
+              <span className="font-medium text-text-primary tnum">
                 {item?.date
                   ? formatDate(item.date)
                   : formatDate(new Date().toISOString())}
               </span>
             </div>
-            <div className="flex justify-between">
-              <span>Total</span>
-              <span className="font-medium text-green-600">
+            <hr className="divider my-1" />
+            <div className="flex items-baseline justify-between pt-1">
+              <span className="font-medium text-text-primary">Total</span>
+              <span className="font-display tnum text-xl font-semibold text-text-primary">
                 ₹{item?.total ?? 0}
               </span>
             </div>
@@ -166,27 +145,28 @@ export default function OrderConfirmationPage({ orderId }: Props) {
         </div>
 
         {/* Buttons */}
-        <div className="flex flex-col sm:flex-row gap-3 mb-4">
-          <Button>
-            <Link href="/user/learning">Go to Your Courses</Link>
-          </Button>
-          <Button>
-            <Link href="/explore">Browse More Courses</Link>
-          </Button>
+        <div className="flex flex-col sm:flex-row gap-3 mb-3">
+          <Link href="/user/learning" className="flex-1">
+            <Button fullWidth>Go to your courses</Button>
+          </Link>
+          <Link href="/explore" className="flex-1">
+            <Button fullWidth variant="outline">Browse more courses</Button>
+          </Link>
         </div>
 
         {/* Download Invoice */}
         <Button
+          variant="ghost"
+          fullWidth
           onClick={handleDownloadInvoice}
-          className="w-full flex items-center justify-center gap-2 bg-blue-500 hover:bg-blue-600 text-white py-3 rounded-xl font-medium transition-colors"
         >
-          <FileDown className="w-5 h-5" />
-          Download Invoice
+          <FileDown className="w-4 h-4" strokeWidth={1.75} />
+          Download invoice
         </Button>
       </div>
 
       {/* Footer Note */}
-      <p className="text-gray-400 text-sm mt-6">
+      <p className="text-text-muted text-sm mt-6">
         A confirmation email has been sent to your registered email address.
       </p>
     </div>

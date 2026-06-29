@@ -6,15 +6,14 @@ import Link from "next/link";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store/Store";
 import ClientOnly from "@/util/CilentOnly";
-import { CircleUserRound, Menu , ShoppingCart } from "lucide-react";
-import Button from "@/ui/Button";
+import { Menu, ShoppingCart } from "lucide-react";
+import ThemeToggle from "@/ui/ThemeToggle";
 import MobileMenu from "./MobileMenu";
 import Avatar from "./Avatar";
 import { useRouter } from "next/navigation";
 import { userLogout } from "@/store/slices/user/userAuth-slice";
 import { useDispatch } from "react-redux";
 
-import Image from "next/image";
 import { clearCart } from "@/store/slices/user/addToCart-slice";
 
 export default function Header() {
@@ -56,61 +55,73 @@ export default function Header() {
 
   return (
     <ClientOnly>
-      <nav  className=" w-full items-center justify-between relative  ">
+      <header className="sticky top-0 z-40 border-b border-border bg-bg/85 backdrop-blur-sm">
+        <div className="mx-auto flex h-16 w-full max-w-[1400px] items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
+          {/* Brand */}
+          <Link href="/" className="group flex items-center gap-2.5">
+            <span
+              className="flex size-9 items-center justify-center rounded-xl bg-brand font-display text-lg font-bold text-white transition-transform duration-200 group-hover:-translate-y-px"
+              style={{ boxShadow: 'var(--shadow-brand)' }}
+            >
+              ↑
+            </span>
+            <span className="font-display text-[22px] font-bold tracking-tight text-text-primary">
+              UpNext
+            </span>
+          </Link>
 
-
-
-        <div className="w-[95%] mx-auto flex h-20 mt-5 items-center justify-between px-6 py-3  relative ">
-        <div className="flex items-center space-x-2">
-        
-          <span className=" w-10 h-10 bg-[#8c52ff] rounded-full"></span>
-        </div>
-
-
-        <div className="hidden text-sm md:flex items-center space-x-8">
-          {manageOptions.map((opt) => (
-              <Link href={opt.href} key={opt.label} className="text-gray-700 hover:text-[#8c52ff] transition">
+          {/* Desktop Nav */}
+          <nav className="hidden items-center gap-1 text-sm md:flex">
+            {manageOptions.map((opt) => (
+              <Link
+                href={opt.href}
+                key={opt.label}
+                className="rounded-md px-3 py-1.5 font-medium text-text-secondary transition-colors duration-150 hover:bg-surface-muted hover:text-text-primary"
+              >
                 {opt.label}
               </Link>
             ))}
-        </div>
-        <div className="flex items-center space-x-4">
-          
-        </div>
+          </nav>
 
-        {/* Desktop Right Side */}
-        <div className="flex  items-center space-x-4">
-        <div className="relative">
-    <ShoppingCart onClick={shoppingCartHandler} className="w-6 h-6 md:w-8 md:h-8" />
-    {forNotification && (
-      <span className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-[#8c52ff] rounded-full"></span>
-    )}
-  </div>
+          {/* Right Side Actions */}
+          <div className="flex items-center gap-1.5 sm:gap-2">
+            <ThemeToggle />
 
+            <button
+              type="button"
+              onClick={shoppingCartHandler}
+              aria-label="Cart"
+              className="relative inline-flex size-9 items-center justify-center rounded-md text-text-secondary transition-colors duration-150 hover:bg-surface-muted hover:text-text-primary"
+            >
+              <ShoppingCart className="h-[18px] w-[18px]" strokeWidth={1.75} />
+              {forNotification && (
+                <span className="absolute right-1.5 top-1.5 h-1.5 w-1.5 rounded-full bg-accent ring-2 ring-bg"></span>
+              )}
+            </button>
 
-
-          {token ? (
-            <Avatar logoutHandler={logoutHandler} token={token} />
-          ) : (
-            <div>
-            <Button className="hidden md:block w-20 h-10 text-[#f5f5f5] text-sm bg-[#8c52ff]">
-              <Link href="/auth">Login</Link>
-              </Button>
-              <Menu className="md:hidden" onClick={() => setMenuOpen(init=>!init)} />
+            {token ? (
+              <Avatar logoutHandler={logoutHandler} token={token} />
+            ) : (
+              <div className="flex items-center gap-2">
+                <Link href="/auth" className="hidden md:block">
+                  <button className="btn-primary px-4 py-2 text-sm font-medium">
+                    Log in
+                  </button>
+                </Link>
+                <button
+                  type="button"
+                  aria-label="Open menu"
+                  className="inline-flex size-9 items-center justify-center rounded-md text-text-secondary transition-colors duration-150 hover:bg-surface-muted hover:text-text-primary md:hidden"
+                  onClick={() => setMenuOpen((init) => !init)}
+                >
+                  <Menu className="h-[18px] w-[18px]" strokeWidth={1.75} />
+                </button>
               </div>
-            
-          )}
-          <MobileMenu isOpen={menuOpen} closeMenu={() => setMenuOpen(false)} />
+            )}
+            <MobileMenu isOpen={menuOpen} closeMenu={() => setMenuOpen(false)} />
+          </div>
         </div>
-
-        {/* Mobile Menu Toggle */}
-          
-
-      
-     
-               </div>
-
-      </nav>
+      </header>
     </ClientOnly>
   );
 }

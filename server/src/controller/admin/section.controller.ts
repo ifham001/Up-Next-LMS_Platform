@@ -1,6 +1,7 @@
 import { Context } from "hono";
 import { createCourseSection, deleteSection, getDraftedSections, getSectionItem, sectionFinalize } from "../../queries/admin/section.queries";
 import { z } from "zod";
+import { getErrorMessage } from "../../util/errors";
 
 const addNewSectionSchema = z.object({
     courseId: z.string(),
@@ -41,7 +42,7 @@ export const addNewSection = async (c: Context) => {
         return c.json({ message: "Course section created successfully",draft: false , sectionId: sectionId,sectionNumber: sectionNumber, success: true })
         } catch (error) {
          
-    return c.json({ error: error.message, success: false }, 400);
+    return c.json({ error: getErrorMessage(error), success: false }, 400);
     }
 }
 
@@ -58,7 +59,7 @@ export const getDraftSections = async (c: Context) => {
         }
         return c.json({ draftCourseSection, getSectionItems, success: true }, 200);
     } catch (error) {
-        return c.json({ error: error.message, success: false }, 400);
+        return c.json({ error: getErrorMessage(error), success: false }, 400);
     }
 }
 export const onDeleteSection = async (c: Context) => {

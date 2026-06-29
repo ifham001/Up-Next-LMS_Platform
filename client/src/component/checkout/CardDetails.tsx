@@ -81,44 +81,44 @@ export default function CardDetails({
 
   return (
     <>
-      <div className="flex items-center justify-between">
-        <h2 className="text-lg font-bold text-gray-700">Payment Method</h2>
-        <Button  onClick={fillRandomDetails}>
-          Fill Random Details
+      <div className="flex items-center justify-between gap-4 flex-wrap">
+        <h2 className="text-base font-semibold text-text-primary">Payment method</h2>
+        <Button variant="outline" size="sm" onClick={fillRandomDetails}>
+          Fill test details
         </Button>
       </div>
 
-      <div className="space-y-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
         <label
-          className={`flex items-center px-3 py-2 rounded-lg cursor-pointer
-            bg-[var(--color-input-bg)] text-[var(--color-text-primary)]
-            border border-[var(--color-input-border)]
-            hover:border-gray-400 focus-within:ring-2 focus-within:ring-[var(--color-brand)]`}
+          className="flex items-center px-4 py-3 rounded-md cursor-pointer border border-border bg-surface
+            text-text-primary transition-colors
+            hover:border-border-strong focus-within:ring-2 focus-within:ring-accent/40
+            has-[:checked]:border-accent has-[:checked]:bg-accent-soft"
         >
-          <input type="radio" name="payment" className="mr-3" defaultChecked />
-          <span className="font-medium">Credit Card</span>
+          <input type="radio" name="payment" className="mr-3 accent-[var(--color-accent)]" defaultChecked />
+          <span className="text-sm font-medium">Credit card</span>
         </label>
 
         <label
-          className={`flex items-center px-3 py-2 rounded-lg cursor-pointer
-            bg-[var(--color-input-bg)] text-[var(--color-text-primary)]
-            border border-[var(--color-input-border)]
-            hover:border-gray-400 focus-within:ring-2 focus-within:ring-[var(--color-brand)]`}
+          className="flex items-center px-4 py-3 rounded-md cursor-pointer border border-border bg-surface
+            text-text-primary transition-colors
+            hover:border-border-strong focus-within:ring-2 focus-within:ring-accent/40
+            has-[:checked]:border-accent has-[:checked]:bg-accent-soft"
         >
-          <input type="radio" name="payment" className="mr-3" />
-          <span className="font-medium">UPI</span>
+          <input type="radio" name="payment" className="mr-3 accent-[var(--color-accent)]" />
+          <span className="text-sm font-medium">UPI</span>
         </label>
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <TextInput
-          label="Card Number"
+          label="Card number"
           state={[cardNumberValue, setCardNumber]}
           value={cardNumberValue}
-          placeholder="Card Number"
+          placeholder="1234 5678 9012 3456"
         />
         <TextInput
-          label="Expiry Date"
+          label="Expiry date"
           state={[expiryValue, setExpiryDate]}
           value={expiryValue}
           placeholder="MM/YY"
@@ -127,13 +127,13 @@ export default function CardDetails({
           label="CVV"
           state={[cvvValue, setCvv]}
           value={cvvValue}
-          placeholder="CVV"
+          placeholder="123"
         />
         <TextInput
-          label="Card Name"
+          label="Cardholder name"
           state={[cardNameValue, setCardName]}
           value={cardNameValue}
-          placeholder="Cardholder Name"
+          placeholder="Name on card"
         />
       </div>
     </>

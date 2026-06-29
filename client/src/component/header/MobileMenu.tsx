@@ -8,8 +8,8 @@ interface MobileMenuProps {
 }
 
 const options = [
-  { label: "Home", href: "/"},
-  { label: "Explore", href: "/explore"},
+  { label: "Home", href: "/" },
+  { label: "Explore", href: "/explore" },
   { label: "About Us", href: "/about-us" },
   { label: "Contact Us", href: "/contact-us" },
 ];
@@ -18,13 +18,13 @@ const MobileMenu = ({ isOpen, closeMenu }: MobileMenuProps) => {
   if (!isOpen) return null;
 
   return (
-    <div className="absolute top-full left-0 w-full bg-gray-700 text-white rounded-lg shadow-lg mt-3 p-6 flex flex-col gap-4 md:hidden z-50">
+    <div className="absolute top-full right-2 z-50 mt-2 flex w-56 flex-col rounded-2xl border border-border bg-surface p-1.5 shadow-md md:hidden animate-fadeIn">
       {options.map((opt) => (
         <Link
           key={opt.label}
           href={opt.href}
           onClick={closeMenu}
-          className="hover:text-[#ff5e1a] transition border-b border-gray-600 pb-2 last:border-b-0"
+          className="rounded-full px-3 py-2 text-sm font-medium text-text-secondary transition-colors hover:bg-brand-50 hover:text-brand-dark"
         >
           {opt.label}
         </Link>

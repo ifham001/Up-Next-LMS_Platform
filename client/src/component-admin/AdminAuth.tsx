@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
-import Button from "@/ui/Button";
 import TextInput from "@/ui/TextInput";
+import Button from "@/ui/Button";
 import { useDispatch } from "react-redux";
 import { showNotification } from "@/store/slices/common/notification-slice";
 import Loading from "@/ui/Loading";
@@ -53,43 +53,46 @@ function AdminAuth({}: Props) {
   }
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-gray-100 to-gray-200">
-      <div className="w-full max-w-md bg-white p-8 rounded-2xl shadow-lg border border-gray-100">
-        <h1 className="text-2xl font-bold text-center text-gray-800 mb-6">
-          Admin Login
-        </h1>
+    <div className="flex min-h-screen items-center justify-center px-4 py-16">
+      <div className="card animate-fadeInUp w-full max-w-md p-10">
+        <div className="mb-8">
+          <span className="eyebrow mb-4">Admin console</span>
+          <h1 className="text-2xl font-semibold tracking-tight text-text-primary">
+            Admin <span className="text-accent">sign in</span>
+          </h1>
+          <p className="mt-2 text-sm leading-relaxed text-text-secondary">
+            Sign in to manage courses, users, and content.
+          </p>
+        </div>
 
         <form onSubmit={handleSubmit} className="space-y-5">
           <TextInput
             label="Email"
-            placeholder="Enter your email"
+            placeholder="you@example.com"
             type="email"
             value={email}
             state={[email, setEmail]}
-            className="w-full px-4 py-2 border rounded-lg bg-gray-50 focus:ring-2 focus:ring-indigo-500 focus:outline-none"
             required
           />
 
           <TextInput
             label="Password"
-            placeholder="Enter your password"
+            placeholder="Your password"
             type="password"
             value={password}
             state={[password, setPassword]}
-            className="w-full px-4 py-2 border rounded-lg bg-gray-50 focus:ring-2 focus:ring-indigo-500 focus:outline-none"
             required
           />
 
-          <Button
-            type="submit"
-            className="w-full py-3 rounded-lg  text-white font-semibold transition-all"
-          >
-            Login
+          <Button type="submit" fullWidth size="lg">
+            Sign in
           </Button>
         </form>
 
-        <p className="mt-6 text-center text-sm text-gray-500">
-          &copy; {new Date().getFullYear()} Admin Dashboard
+        <div className="divider my-7" />
+
+        <p className="text-xs text-text-muted">
+          &copy; {new Date().getFullYear()} Up Next · Admin console
         </p>
       </div>
     </div>

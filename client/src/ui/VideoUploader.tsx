@@ -46,10 +46,10 @@ const VideoUploader: React.FC<VideoUploaderProps> = ({ onFileSelect, label = 'Up
         onDrop={handleDrop}
         onDragOver={(e) => e.preventDefault()}
         htmlFor="video-upload"
-        className="flex flex-col items-center justify-center w-full p-4 border-2 border-dashed border-gray-300 rounded-2xl cursor-pointer bg-gray-50 hover:border-blue-400 transition"
+        className="flex flex-col items-center justify-center w-full p-6 border-2 border-dashed border-input-border rounded-xl cursor-pointer bg-surface-muted hover:border-brand hover:bg-brand-50 transition-colors duration-200"
       >
-        <VideoIcon className="w-10 h-10 text-blue-500 mb-2" />
-        <span className="text-sm text-gray-600">{label}</span>
+        <VideoIcon className="w-10 h-10 text-brand mb-2" />
+        <span className="text-sm text-text-secondary">{label}</span>
         <input
           ref={inputRef}
           id="video-upload"
@@ -61,11 +61,11 @@ const VideoUploader: React.FC<VideoUploaderProps> = ({ onFileSelect, label = 'Up
       </label>
 
       {fileName && (
-        <div className="mt-3 flex items-center justify-between bg-gray-100 px-4 py-2 rounded-lg">
-          <span className="text-sm text-gray-700 truncate">{fileName}</span>
+        <div className="mt-3 flex items-center justify-between bg-surface-muted border border-border px-4 py-2.5 rounded-lg">
+          <span className="text-sm text-text-secondary truncate">{fileName}</span>
           <button
             onClick={handleReset}
-            className="ml-4 text-gray-500 hover:text-red-600 transition"
+            className="ml-4 text-text-muted hover:text-error transition-colors"
           >
             <XIcon className="w-4 h-4" />
           </button>

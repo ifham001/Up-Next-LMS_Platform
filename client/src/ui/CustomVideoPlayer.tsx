@@ -95,7 +95,7 @@ export default function CustomVideoPlayer({
           <select
             value={selectedLevel}
             onChange={(e) => handleQualityChange(Number(e.target.value))}
-            className="bg-transparent border border-gray-500 rounded px-1 py-0.5 text-white"
+            className="bg-transparent border border-white/30 rounded px-1 py-0.5 text-white"
           >
             <option value={-1}>Auto</option>
             {levels.map((level) => (

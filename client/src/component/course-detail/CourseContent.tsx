@@ -52,30 +52,35 @@ const CourseContent = ({ courseId }: Props) => {
   }
 
   return (
-    <main className="max-w-6xl mx-auto px-4 py-10 grid grid-cols-1 md:grid-cols-[1fr_320px] gap-8">
-      <div className="space-y-8">
-        <Header
-          tagline={course.tagline}
-          title={course.title}
-          total_enrollment={course.total_enrollment}
-          quizzez={course.quizzez}
-          resources={course.resources}
-          duration={course.duration ?? 0}
-        />
-        <YouWillLearn benefits={course.benefits} />
-        <Requirements requirements={course.requirements} />
-        <Description description={course.description} />
-      </div>
-      <Sidebar 
-        courseId={courseId}
-       thumbnail_url={course.thumbnail}
-        preview_video = {course.preview_video}
-        preview_video_duration = {course.preview_video_duration}
-        course_duration={course.duration ?? 0}
-        resources={course.resources}
+    <main className="mx-auto max-w-6xl px-4 py-12 sm:px-6 md:py-16 lg:px-8 space-y-10">
+      {/* Title, meta, thumbnail */}
+      <Header
+        tagline={course.tagline}
+        title={course.title}
+        total_enrollment={course.total_enrollment}
         quizzez={course.quizzez}
-        price={course.price} // replace with actual course.price if you have it
+        resources={course.resources}
+        duration={course.duration ?? 0}
       />
+
+      {/* Content column + sticky purchase panel */}
+      <div className="grid grid-cols-1 items-start gap-10 lg:grid-cols-[1fr_340px]">
+        <div className="space-y-10">
+          <YouWillLearn benefits={course.benefits} />
+          <Requirements requirements={course.requirements} />
+          <Description description={course.description} />
+        </div>
+        <Sidebar
+          courseId={courseId}
+          thumbnail_url={course.thumbnail}
+          preview_video={course.preview_video}
+          preview_video_duration={course.preview_video_duration}
+          course_duration={course.duration ?? 0}
+          resources={course.resources}
+          quizzez={course.quizzez}
+          price={course.price} // replace with actual course.price if you have it
+        />
+      </div>
     </main>
   );
 };

@@ -26,16 +26,17 @@ export const createUser = async (user: User,dispatch: AppDispatch,setIsLoading: 
             },
         });
         const data = await response.json();
-        if(data.user){
+        // Server returns the canonical envelope: { success, message, data: { user } }
+        if(data.success && data.data?.user){
          dispatch(showNotification({
-            message: "User created successfully",
+            message: data.message || "Account created successfully",
             type: "success",
          }));
-       
-            return data;
+
+            return { success: true, ...data.data };
         }
        return dispatch(showNotification({
-            message: "Failed to create user",
+            message: data.message || "Failed to create account",
             type: "error",
         }));
        
@@ -65,17 +66,18 @@ export const loginUser = async (user: User,dispatch: AppDispatch,setIsLoading: (
             },
         });
         const data = await response.json();
-        if(data.token){
+        // Server returns the canonical envelope: { success, message, data: { user, token } }
+        if(data.success && data.data?.token){
             dispatch(showNotification({
-                message: "Login successful",
+                message: data.message || "Login successful",
                 type: "success",
             }));
-            dispatch(userLogin(data));
-           return data
+            dispatch(userLogin(data.data));
+           return { success: true, ...data.data }
         }
 
         return dispatch(showNotification({
-            message: "Failed to login",
+            message: data.message || "Incorrect email or password",
             type: "error",
         }));
         

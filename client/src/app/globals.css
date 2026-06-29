@@ -1,71 +1,329 @@
 @import "tailwindcss";
 
+/*
+  ============================================================
+  Up-Next LMS — "Warm Coral" Design System
+  Based on the UpNext landing reference: warm cream paper, a
+  rose-coral accent, Space Grotesk display + Hanken Grotesk body.
+  Energetic but disciplined — pill buttons, soft warm borders,
+  generous warmth. One accent, locked across the whole app.
 
+  Token NAMES are kept stable (bg, surface, brand, text-primary…)
+  so existing components keep working; their MEANING is the new
+  warm-coral palette.
+  ============================================================
+*/
 
+@theme {
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-display), var(--font-geist-sans), ui-sans-serif, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+}
+
+/*
+  Tailwind v4 generates color utilities (bg-brand, text-text-secondary, …) from
+  the --color-* names in @theme. We map them `inline` to the runtime CSS vars
+  declared in :root / [data-theme] below, so the utilities exist AND still flip
+  with the theme. (Without this, `theme.colors` in tailwind.config.ts is ignored
+  by v4 and every color utility falls back / renders transparent.)
+*/
+@theme inline {
+  --color-brand: var(--color-brand);
+  --color-brand-light: var(--color-brand-light);
+  --color-brand-dark: var(--color-brand-dark);
+  --color-brand-50: var(--color-brand-50);
+  --color-brand-100: var(--color-brand-100);
+  --color-accent: var(--color-accent);
+  --color-accent-soft: var(--color-accent-soft);
+  --color-bg: var(--color-bg);
+  --color-bg-2: var(--color-bg-2);
+  --color-surface: var(--color-surface);
+  --color-surface-solid: var(--color-surface-solid);
+  --color-surface-muted: var(--color-surface-muted);
+  --color-border: var(--color-border);
+  --color-border-strong: var(--color-border-strong);
+  --color-input-bg: var(--color-input-bg);
+  --color-input-border: var(--color-input-border);
+  --color-input-placeholder: var(--color-input-placeholder);
+  --color-text-primary: var(--color-text-primary);
+  --color-text-secondary: var(--color-text-secondary);
+  --color-text-muted: var(--color-text-muted);
+  --color-text-inverted: var(--color-text-inverted);
+  --color-success: var(--color-success);
+  --color-success-soft: var(--color-success-soft);
+  --color-warning: var(--color-warning);
+  --color-warning-soft: var(--color-warning-soft);
+  --color-error: var(--color-error);
+  --color-error-soft: var(--color-error-soft);
+}
 
 :root {
-  --color-brand: #374151; /* Primary brand color */
-  --color-brand-light: #60A5FA;
-  --color-brand-dark: #1E3A8A;
-  --color-accent: #F59E0B;
-  
-  --color-bg: #F9FAFB;         /* Page background */
-  --color-surface: #FFFFFF;    /* Cards, containers */
-  --color-border: #E5E7EB;     /* Borders, dividers */
-  --color-input-bg: #F3F4F6;   /* Input fields */
-  --color-input-border: #D1D5DB;
-  --color-input-placeholder: #9CA3AF;
+  /* Brand = warm rose-coral (pink-leaning, energetic). Locked accent. */
+  --color-brand: #F0567A;        /* rose-coral */
+  --color-brand-light: #F67893;  /* hover-light */
+  --color-brand-dark: #C9385C;   /* deep — hover/pressed, text-on-soft */
+  --color-brand-50: #FDE7EC;     /* soft tint — eyebrow/badge bg */
+  --color-brand-100: #FBD3DD;
+  --color-accent: #F0567A;       /* same single accent (no second color) */
+  --color-accent-soft: #FDE7EC;
 
-  --color-text-primary: #374151;   /* Main text */
-  --color-text-secondary: #4B5563; /* Subtext, labels */
-  --color-text-inverted: #FFFFFF;  /* On brand-colored buttons */
+  /* Surfaces — warm cream paper (from the reference) */
+  --color-bg: #FFF7EF;           /* page — warm cream */
+  --color-surface: #FFFFFF;      /* cards */
+  --color-surface-muted: #FBF3E9;/* inset warm panels */
+  --color-border: #F0E3D3;       /* warm hairline borders */
+  --color-border-strong: #E5D3BE;/* emphasis warm border */
 
-  --color-success: #10B981;
-  --color-warning: #F59E0B;
-  --color-error: #EF4444;
+  /* Inputs */
+  --color-input-bg: #FFFFFF;
+  --color-input-border: #EFE0CF;
+  --color-input-placeholder: #B9A892;
+
+  /* Text — warm near-black ink (from the reference) */
+  --color-text-primary: #1A1209;   /* warm ink */
+  --color-text-secondary: #6F6253; /* warm taupe body */
+  --color-text-muted: #8A7B6A;     /* warm muted */
+  --color-text-inverted: #FFFFFF;
+
+  /* Status — kept readable on warm cream */
+  --color-success: #2F7D4F;
+  --color-success-soft: #E5F1E8;
+  --color-warning: #B27A0B;
+  --color-warning-soft: #FBEFD6;
+  --color-error: #C9385C;
+  --color-error-soft: #FBE3E9;
+
+  /* Shadows — tinted to the warm ink hue, soft */
+  --shadow-xs: 0 1px 2px 0 rgb(26 18 9 / 0.05);
+  --shadow-sm: 0 2px 6px -2px rgb(26 18 9 / 0.10), 0 1px 2px 0 rgb(26 18 9 / 0.06);
+  --shadow-md: 0 14px 36px -16px rgb(26 18 9 / 0.22), 0 4px 10px -6px rgb(26 18 9 / 0.10);
+  --shadow-lg: 0 24px 60px -28px rgb(26 18 9 / 0.40), 0 8px 18px -10px rgb(26 18 9 / 0.16);
+  --shadow-brand: 0 14px 30px -12px rgb(240 86 122 / 0.55);
+
+  /* Radius — soft scale; interactive = pill */
+  --radius-sm: 0.625rem;
+  --radius: 0.875rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.25rem;
+
+  --ring: 0 0 0 3px rgb(240 86 122 / 0.30);
 }
 
 [data-theme="dark"] {
-  --color-bg: #111418;         /* Page background */
-  --color-surface: #1F2937;    /* Cards, containers */
-  --color-border: #374151;     /* Borders, dividers */
-  --color-input-bg: #283039;   /* Input fields */
-  --color-input-border: #4B5563;
-  --color-input-placeholder: #9CA3AF;
+  /* Warm dark variant (the reference's #160F07 spotlight band, generalized) */
+  --color-brand: #F67893;
+  --color-brand-light: #F99CB0;
+  --color-brand-dark: #F0567A;
+  --color-brand-50: #2A1A1E;
+  --color-brand-100: #3A2329;
+  --color-accent: #F67893;
+  --color-accent-soft: #2A1A1E;
 
-  --color-text-primary: #F9FAFB;   /* Main text */
-  --color-text-secondary: #D1D5DB; /* Subtext, labels */
-  --color-text-inverted: #111827;  /* On brand-colored buttons */
+  --color-bg: #160F07;           /* warm near-black */
+  --color-surface: #211810;
+  --color-surface-muted: #2A2015;
+  --color-border: #3A2E20;
+  --color-border-strong: #4D3E2C;
 
-  --color-success: #34D399;
-  --color-warning: #FBBF24;
-  --color-error: #F87171;
+  --color-input-bg: #211810;
+  --color-input-border: #4D3E2C;
+  --color-input-placeholder: #8A7B6A;
+
+  --color-text-primary: #FBF3E9;
+  --color-text-secondary: #C9BBAA;
+  --color-text-muted: #9A8B79;
+  --color-text-inverted: #160F07;
+
+  --color-success: #6BD49A;
+  --color-success-soft: #16271C;
+  --color-warning: #F0C25A;
+  --color-warning-soft: #2C2208;
+  --color-error: #F67893;
+  --color-error-soft: #2A1418;
+
+  --shadow-xs: 0 1px 2px 0 rgb(0 0 0 / 0.4);
+  --shadow-sm: 0 2px 6px -2px rgb(0 0 0 / 0.5), 0 1px 2px 0 rgb(0 0 0 / 0.4);
+  --shadow-md: 0 14px 36px -16px rgb(0 0 0 / 0.55), 0 4px 10px -6px rgb(0 0 0 / 0.4);
+  --shadow-lg: 0 24px 60px -28px rgb(0 0 0 / 0.65), 0 8px 18px -10px rgb(0 0 0 / 0.45);
+  --shadow-brand: 0 14px 30px -12px rgb(246 120 147 / 0.5);
+
+  --ring: 0 0 0 3px rgb(246 120 147 / 0.35);
 }
 
+* { border-color: var(--color-border); }
+
+html { scroll-behavior: smooth; }
 
 body {
-  background: white;
+  background: var(--color-bg);
   color: var(--color-text-primary);
-  font-family: var(--font-geist-sans), sans-serif;
+  font-family: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
+.tnum { font-variant-numeric: tabular-nums; }
 
-@keyframes progress {
-  0% { width: 0%; }
-  50% { width: 80%; }
-  100% { width: 100%; }
+/* ---- Display type: Space Grotesk, tight, heavy ---- */
+.display {
+  font-family: var(--font-display), var(--font-geist-sans), ui-sans-serif, sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.0;
+  text-wrap: balance;
 }
-.animate-progress {
-  animation: progress 2.5s ease-in-out infinite;
+h1, h2, h3 {
+  font-family: var(--font-display), var(--font-geist-sans), ui-sans-serif, sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+  text-wrap: balance;
+  color: var(--color-text-primary);
+}
+p { text-wrap: pretty; }
+
+/* Eyebrow / kicker — Space Mono, tracked, in a soft coral pill (from reference) */
+.eyebrow {
+  display: inline-flex; align-items: center; gap: 0.55rem;
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 0.72rem; font-weight: 700;
+  letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--color-brand-dark);
+  background: var(--color-brand-50);
+  padding: 0.5rem 0.9rem; border-radius: 9999px;
+}
+.eyebrow::before {
+  content: ""; width: 7px; height: 7px; border-radius: 9999px;
+  background: var(--color-brand); display: inline-block;
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-.animate-fadeIn {
-  animation: fadeIn 0.5s ease-in-out;
-}
-body {
+/* Accent word in a headline (the "next." treatment) */
+.text-accent { color: var(--color-brand); }
 
+/* ---- Surfaces: flat warm cards, hairline borders ---- */
+.card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+}
+.card-interactive {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+.card-interactive:hover {
+  border-color: var(--color-border-strong);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+.surface-muted { background: var(--color-surface-muted); }
+.divider { height: 1px; background: var(--color-border); border: 0; }
+
+/* ---- Buttons: solid coral pill with soft brand shadow (from reference) ---- */
+.btn-primary {
+  background: var(--color-brand);
+  color: #fff;
+  border-radius: 9999px;
+  box-shadow: var(--shadow-brand);
+  transition: background-color 0.18s ease, transform 0.15s ease, box-shadow 0.18s ease;
+}
+.btn-primary:hover { background: var(--color-brand-dark); transform: translateY(-1px); }
+.btn-primary:active { transform: translateY(0) scale(0.99); }
+
+/* Chip / category pill — bordered, hover to coral (from reference) */
+.chip {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  padding: 0.4rem 0.85rem; border-radius: 9999px;
+  font-size: 0.8rem; font-weight: 600;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-secondary);
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+.chip:hover { border-color: var(--color-brand); color: var(--color-brand-dark); }
+.chip-active { background: var(--color-brand); border-color: var(--color-brand); color: #fff; }
+
+/* Progress — coral fill */
+.bar-track { background: var(--color-surface-muted); border-radius: 9999px; overflow: hidden; }
+.bar-fill { background: var(--color-brand); border-radius: 9999px; }
+
+.link-accent { color: var(--color-brand-dark); }
+.link-accent:hover { text-decoration: underline; text-underline-offset: 2px; }
+
+.focus-ring:focus-visible { outline: none; box-shadow: var(--ring); }
+
+/* Radial warm glow behind hero (subtle, from reference) */
+.hero-glow {
+  position: absolute; pointer-events: none;
+  background: radial-gradient(circle, rgb(240 86 122 / 0.14), transparent 65%);
+}
+
+/* Giant ghost wordmark watermark (centered hero, from reference) */
+.ghost-wordmark {
+  font-family: var(--font-display), sans-serif;
+  font-weight: 700; letter-spacing: -0.05em;
+  color: var(--color-text-primary); opacity: 0.04;
+  white-space: nowrap; user-select: none; pointer-events: none;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 12px; height: 12px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: var(--color-border-strong); border-radius: 9999px;
+  border: 3px solid var(--color-bg); background-clip: padding-box;
+}
+::-webkit-scrollbar-thumb:hover { background: var(--color-text-muted); }
+::selection { background: var(--color-brand); color: #fff; }
+
+/* ---- Motion (from reference: floaty, marquee, pulse, fadeUp) ---- */
+@keyframes floaty { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
+.animate-float { animation: floaty 7s ease-in-out infinite; }
+@keyframes floaty2 { 0%,100% { transform: translateY(0); } 50% { transform: translateY(10px); } }
+.animate-float2 { animation: floaty2 7s ease-in-out infinite; }
+
+@keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+.animate-marquee { animation: marquee 40s linear infinite; }
+
+@keyframes pulseRing {
+  0% { box-shadow: 0 0 0 0 rgb(240 86 122 / 0.5); }
+  70% { box-shadow: 0 0 0 16px rgb(240 86 122 / 0); }
+  100% { box-shadow: 0 0 0 0 rgb(240 86 122 / 0); }
+}
+.animate-pulseRing { animation: pulseRing 2.4s ease-out infinite; }
+
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+.animate-fadeIn { animation: fadeIn 0.4s ease both; }
+@keyframes fadeInUp { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+.animate-fadeInUp { animation: fadeInUp 0.6s cubic-bezier(0.16,1,0.3,1) both; }
+.animate-fadeInUp.delay-1 { animation-delay: 0.08s; }
+.animate-fadeInUp.delay-2 { animation-delay: 0.16s; }
+.animate-fadeInUp.delay-3 { animation-delay: 0.24s; }
+
+@keyframes progress { 0% { width: 0%; } 50% { width: 80%; } 100% { width: 100%; } }
+.animate-progress { animation: progress 2.5s ease-in-out infinite; }
+
+/* Video player center "ripple" feedback (play/pause/skip) */
+@keyframes ripplePop {
+  0% { transform: scale(0.7); opacity: 0; }
+  30% { transform: scale(1); opacity: 1; }
+  100% { transform: scale(1.25); opacity: 0; }
+}
+
+@keyframes shimmer { 100% { transform: translateX(100%); } }
+.skeleton { position: relative; overflow: hidden; background: var(--color-surface-muted); border-radius: var(--radius); }
+.skeleton::after {
+  content: ""; position: absolute; inset: 0; transform: translateX(-100%);
+  background: linear-gradient(90deg, transparent, rgb(26 18 9 / 0.05), transparent);
+  animation: shimmer 1.5s infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-float, .animate-float2, .animate-marquee, .animate-pulseRing,
+  .animate-fadeIn, .animate-fadeInUp { animation: none !important; }
+  .card-interactive, .btn-primary { transition: none; }
+  html { scroll-behavior: auto; }
 }

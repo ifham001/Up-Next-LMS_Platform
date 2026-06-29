@@ -71,9 +71,20 @@ export function Checkout() {
   }
 
   return (
-    <div className="max-w-7xl mx-auto p-6 grid grid-cols-1 lg:grid-cols-3 gap-8">
-      <div className="lg:col-span-2 bg-white rounded-2xl shadow-sm p-6 space-y-6">
-        
+    <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16 grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-10">
+      <div className="lg:col-span-2 space-y-8">
+        <div className="animate-fadeInUp">
+          <span className="eyebrow mb-4">Secure checkout</span>
+          <h1 className="display text-3xl sm:text-4xl">
+            Almost <span className="text-accent">there</span>
+          </h1>
+          <p className="text-text-secondary leading-relaxed mt-3 max-w-[65ch]">
+            Review your details and confirm. Your courses unlock as soon as the order is placed.
+          </p>
+        </div>
+
+        <div className="card p-6 sm:p-8 space-y-8 animate-fadeInUp delay-1">
+
         <CardDetails
           cardNumber={[cardNumber, setCardNumber]}
           expiryDate={[expiryDate, setExpiryDate]}
@@ -87,17 +98,24 @@ export function Checkout() {
           country={[country, setCountry]}
         />
 
-        <h2 className="text-lg font-bold text-gray-700">Billing Address</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <TextInput label="Name" state={[name, setName]} value={name} placeholder="Enter Name" />
-          <TextInput label="Address" state={[address, setAddress]} value={address} placeholder="Address" />
-          <TextInput label="City" state={[city, setCity]} value={city} placeholder="City" />
-          <TextInput label="State" state={[state, setState]} value={state} placeholder="State" />
-          <TextInput label="Zip Code" state={[zipCode, setZipCode]} value={zipCode} placeholder="Zip Code" />
-          <TextInput label="Country" state={[country, setCountry]} value={country} placeholder="Country" />
+        <hr className="divider" />
+
+        <div className="space-y-4">
+          <h2 className="text-base font-semibold text-text-primary">Billing address</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <TextInput label="Name" state={[name, setName]} value={name} placeholder="Full name" />
+            <TextInput label="Address" state={[address, setAddress]} value={address} placeholder="Street address" />
+            <TextInput label="City" state={[city, setCity]} value={city} placeholder="City" />
+            <TextInput label="State" state={[state, setState]} value={state} placeholder="State" />
+            <TextInput label="Zip code" state={[zipCode, setZipCode]} value={zipCode} placeholder="Zip code" />
+            <TextInput label="Country" state={[country, setCountry]} value={country} placeholder="Country" />
+          </div>
         </div>
 
-        <Button onClick={handlePlaceOrder}>Place Order</Button>
+        <Button fullWidth size="lg" onClick={handlePlaceOrder}>
+          Place order
+        </Button>
+        </div>
       </div>
 
       <ShowCart purchasedItems={purchasedItems} />

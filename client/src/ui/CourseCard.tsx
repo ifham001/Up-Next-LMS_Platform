@@ -2,7 +2,6 @@
 
 import React from 'react';
 import Image, { StaticImageData } from 'next/image';
-import heroImage from '../../public/images/hero.jpg';
 import { BookOpen, Clock, Users, Tag } from 'lucide-react';
 
 
@@ -29,51 +28,50 @@ const CourseCard: React.FC<Props> = ({
   const discountPercent = Math.round(((actualPrice - price) / actualPrice) * 100);
 
   return (
-    <>
-    
-    <div className="min-w-[300px] max-w-[350px] rounded-xl overflow-hidden  bg-white shadow-md hover:shadow-lg transition-all duration-300 flex-shrink-0">
-      {/* Image container must be relative when using `fill` */}
-      <div className="relative h-[180px] w-full">
+    <div className="card-interactive group min-w-[300px] max-w-[350px] flex-shrink-0 overflow-hidden">
+      {/* Thumbnail */}
+      <div className="relative h-[180px] w-full overflow-hidden">
         <Image
           src={imageUrl}
           alt={title}
           fill
-          className="object-cover"
+          className="object-cover transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.03]"
           sizes="(max-width: 768px) 100vw, 350px"
         />
-
-        {/* <span className="absolute top-2 left-2 bg-red-500 text-white text-xs font-semibold px-2 py-1 rounded-lg flex items-center gap-1">
-          <Tag size={14} /> {discountPercent}% OFF
-        </span> */}
+        <span className="chip absolute top-3 left-3 bg-surface">
+          <Tag size={12} strokeWidth={1.75} /> {discountPercent}% off
+        </span>
       </div>
 
-      <div className="p-4 space-y-3">
-        <div className="flex items-center justify-between text-sm text-slate-500">
-          <span className="flex items-center gap-1">
-            <BookOpen size={14} /> {lessons} lessons
+      <div className="p-5 space-y-4">
+        <div className="flex items-center justify-between text-sm text-text-muted">
+          <span className="flex items-center gap-1.5">
+            <BookOpen size={14} strokeWidth={1.75} /> <span className="tnum">{lessons}</span> lessons
           </span>
-          <span className="flex items-center gap-1">
-            <Clock size={14} /> {courseDuration}
+          <span className="flex items-center gap-1.5">
+            <Clock size={14} strokeWidth={1.75} /> <span className="tnum">{courseDuration}</span>
           </span>
         </div>
 
         <div>
-          <h3 className="font-semibold text-lg leading-tight text-slate-800">{title}</h3>
-          <p className="text-sm mt-1 text-slate-500 line-clamp-2">{description}</p>
+          <span className="font-mono text-[11px] uppercase tracking-[0.14em] text-brand-dark">Course</span>
+          <h3 className="font-display text-base font-semibold leading-snug text-text-primary line-clamp-2 mt-1">{title}</h3>
+          <p className="text-sm mt-1.5 leading-relaxed text-text-secondary line-clamp-2">{description}</p>
         </div>
 
-        <div className="flex items-center justify-between pt-2">
-          <div className="text-[#8c52ff] font-bold text-lg flex items-center gap-2">
-            ₹{price.toLocaleString()}
-            <span className="text-sm text-slate-400 line-through">₹{actualPrice.toLocaleString()}</span>
+        <div className="divider" />
+
+        <div className="flex items-center justify-between">
+          <div className="inline-flex items-baseline gap-2">
+            <span className="font-display tnum text-lg font-semibold text-text-primary">₹{price.toLocaleString()}</span>
+            <span className="tnum text-sm font-medium text-text-muted line-through">₹{actualPrice.toLocaleString()}</span>
           </div>
-          <div className="text-sm text-slate-500 flex items-center gap-1">
-            <Users size={14} /> {enrollments} enrolled
+          <div className="text-sm text-text-muted flex items-center gap-1.5">
+            <Users size={14} strokeWidth={1.75} /> <span className="tnum">{enrollments}</span>
           </div>
         </div>
       </div>
     </div>
-    </>
   );
 };
 

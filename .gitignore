@@ -1,0 +1,22 @@
+# Installed agent skills (vendored tooling — not app code)
+.agents/
+
+# Secrets / credentials (never commit)
+**/google_keys.json
+**/.env
+**/.env.local
+**/.env.*.local
+*.pem
+
+# Dependencies & build output
+**/node_modules/
+client/.next/
+**/dist/
+**/build/
+
+# OS / editor cruft
+.DS_Store
+*.log
+
+# Claude session-local files (keep launch.json shareable, drop the rest)
+.claude/settings.local.json

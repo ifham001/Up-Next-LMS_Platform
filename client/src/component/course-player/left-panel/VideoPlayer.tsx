@@ -52,18 +52,18 @@ function Video({ videoId, userCourseId }: Props) {
       />
 
       {/* Tabs */}
-      <div className="flex border-b ">
+      <div className="flex border-b border-border bg-surface">
         {[
-          { key: 'description', label: 'Description', icon: <NotepadText /> },
-          { key: 'comments', label: 'Comments', icon: <MessageCircle /> }
+          { key: 'description', label: 'Description', icon: <NotepadText size={18} /> },
+          { key: 'comments', label: 'Comments', icon: <MessageCircle size={18} /> }
         ].map((tab) => (
           <button
             key={tab.key}
             onClick={() => setActiveTab(tab.key as 'description' | 'comments')}
-            className={`flex-1 flex items-center justify-center gap-2 py-3 transition-colors duration-200 
-              ${activeTab === tab.key 
-                ? 'bg-blue-50 border-b-2 border-gray-700 text-gray-700 font-semibold' 
-                : 'hover:bg-gray-100 text-gray-700'
+            className={`flex-1 flex items-center justify-center gap-2 py-3 text-sm transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-brand/40
+              ${activeTab === tab.key
+                ? 'bg-brand-50 border-b-2 border-brand text-brand font-semibold'
+                : 'border-b-2 border-transparent text-text-secondary hover:bg-surface-muted hover:text-text-primary'
               }`}
           >
             {tab.icon}
@@ -73,7 +73,7 @@ function Video({ videoId, userCourseId }: Props) {
       </div>
 
       {/* Tab Content */}
-      <div className="p-4 min-h-[300px]">
+      <div className="p-5 min-h-[300px] bg-surface">
         {activeTab === 'description' && <Description videoId={videoId} />}
         {activeTab === 'comments' && <Comments videoId={videoId} />}
       </div>
