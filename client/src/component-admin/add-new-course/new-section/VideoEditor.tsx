@@ -61,36 +61,43 @@ export default function VideoEditor({ sectionId, onClose }: Props) {
   if (isLoading) return <Loading />;
 
   return (
-    <>
-      <h1 className="text-xl flex justify-center">Upload Video</h1>
-      <div className="bg-white p-3 rounded mb-2">
+    <div className="space-y-5 p-1">
+      <div>
+        <h1 className="text-xl font-semibold tracking-tight text-text-primary">
+          Upload video
+        </h1>
+        <p className="mt-1 text-sm text-text-secondary">
+          Add a title, description, and the lesson video file.
+        </p>
+      </div>
+      <div className="flex flex-col gap-4 rounded-lg border border-border bg-surface-muted p-5">
         <TextInput
-          label="Video Title"
-          placeholder="Enter title"
+          label="Video title"
+          placeholder="Lesson title"
           state={[title, setTitle]}
           required
         />
         <TextInput
           label="Description"
-          placeholder="Enter description"
+          placeholder="What this lesson covers"
           state={[description, setDescription]}
           required
           textarea
         />
         <UploadWithProgress video={true} onUploaded={handleUploadComplete} />
-
       </div>
 
-      <div className="flex justify-around mt-4">
-        <Button onClick={onClose}>Close</Button>
+      <div className="flex justify-end gap-3">
+        <Button variant="ghost" onClick={onClose}>
+          Cancel
+        </Button>
         <Button
-          className="bg-green-600 h-10"
           onClick={handleSubmit}
           disabled={!title || !description || !videoData || !videoDuration}
         >
-          Upload Video
+          Upload video
         </Button>
       </div>
-    </>
+    </div>
   );
 }

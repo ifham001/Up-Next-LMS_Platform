@@ -1,10 +1,10 @@
 "use client"
 import React, { useEffect, useState } from 'react'
-import Button from '@/ui/Button';
 import { useDispatch } from 'react-redux';
 import { getSectionApi } from '@/api/admin/upload-course/ManageSections';
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, RotateCw } from "lucide-react";
 import Loading from '@/ui/Loading';
+import Button from '@/ui/Button';
 import AddContentMenu from './AddContentMenu';
 import SectionContentList from './SectionContentList';
 
@@ -47,27 +47,34 @@ function ManageSection({courseId}: Props) {
       }
       const currentWorkingSectionId = sections.find((section)=>section.section_status === 'in_progress')?.id;
   return (
-   <> 
-    <header className="flex items-center gap-3 p-4 bg-white shadow-sm mb-6">
+   <div className="min-h-screen px-4 py-6">
+    <header className="mb-6 flex items-center gap-4 border-b border-border pb-5 animate-fadeInUp">
         <button
           onClick={onReturnHandler}
-          className="flex items-center justify-center p-2 rounded-full hover:bg-gray-100 transition"
+          aria-label="Go back"
+          className="flex items-center justify-center rounded-md border border-border bg-surface p-2.5 text-text-secondary transition-colors hover:bg-surface-muted hover:text-text-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/40"
         >
-          <ArrowLeft size={24} />
+          <ArrowLeft size={20} strokeWidth={1.75} />
         </button>
-        <h1 className="text-2xl font-bold">Create New Section & Preview</h1>
+        <div>
+          <h1 className="text-2xl font-semibold tracking-tight text-text-primary sm:text-3xl">
+            Course <span className="text-accent">builder</span>
+          </h1>
+          <p className="mt-1 text-sm text-text-secondary">
+            Create sections and preview your course content.
+          </p>
+        </div>
+        <Button variant="secondary" size="sm" onClick={getSectionHandler} className="ml-auto">
+          <RotateCw size={15} strokeWidth={1.75} /> Reload data
+        </Button>
       </header>
 
-
-   <div className='flex justify-end'>
-   <Button onClick={getSectionHandler} className='text-end mr-10 text-sm'>Reload Data</Button>
-   </div>
-   <div className='flex gap-4'>
+   <div className="flex flex-col gap-4 lg:flex-row">
 
    <AddContentMenu courseId={courseId} sectionId={currentWorkingSectionId || ''} />
-   
-   <div className="h-[calc(100vh-100px)] overflow-y-auto p-4">
-    <div className="flex flex-wrap gap-4"> 
+
+   <div className="h-[calc(100vh-160px)] flex-1 overflow-y-auto">
+    <div className="flex flex-wrap gap-4">
     {sections.map((section, index) => (
       <SectionContentList
         sectionId={section.id}
@@ -84,7 +91,7 @@ function ManageSection({courseId}: Props) {
 
      </div>
 
-      </>
+      </div>
   )
 }
 

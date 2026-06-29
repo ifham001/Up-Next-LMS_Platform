@@ -1,10 +1,10 @@
 import TextInput from '@/ui/TextInput';
 import React, { useState } from 'react'
-import Button from '@/ui/Button';
 import { createSectionApi } from '@/api/admin/upload-course/ManageSections';
 import { showNotification } from '@/store/slices/common/notification-slice';
 import { useDispatch } from 'react-redux';
 import Loading from '@/ui/Loading';
+import Button from '@/ui/Button';
 
 type Props = {
     onClose: () => void;
@@ -37,40 +37,42 @@ function SectionBuilder({onClose,courseId}: Props) {
         return <Loading/>
       }
   return (
-    <>
-    <h1 className="text-xl  text-center">Fill Section Details</h1> 
-    <div className="flex flex-col">
-     <TextInput 
-     label="Title"
-     title="title"
-     state={[title,setTitle]}
-     value={title}
-     placeholder={"add title..."}
-     required
-     />
-     <TextInput
-     
-     label="Description (50 character atleast)"
-     title="Decription"
-     state={[description,setDescription]}
-     required
-     placeholder="add description..."
-     textarea={true}/>
-     <div className="flex justify-around mt-5">
-      <Button onClick={onClose} className="bg-red-600">
-       cancel
-      </Button>
-      <Button onClick={sectionDetailHandler} className="bg-green-700">
-       Submit
-      </Button>
-
-     </div>
-  
-
+    <div className="flex flex-col gap-5 p-1">
+      <div>
+        <h1 className="text-xl font-semibold tracking-tight text-text-primary">
+          New section
+        </h1>
+        <p className="mt-1 text-sm text-text-secondary">
+          Add a title and short description for this section.
+        </p>
+      </div>
+      <div className="flex flex-col gap-4">
+        <TextInput
+          label="Title"
+          title="title"
+          state={[title, setTitle]}
+          value={title}
+          placeholder="Section title"
+          required
+        />
+        <TextInput
+          label="Description (50 characters minimum)"
+          title="Description"
+          state={[description, setDescription]}
+          required
+          placeholder="Describe what this section covers"
+          textarea={true}
+        />
+      </div>
+      <div className="mt-2 flex justify-end gap-3">
+        <Button variant="ghost" onClick={onClose}>
+          Cancel
+        </Button>
+        <Button onClick={sectionDetailHandler}>
+          Save section
+        </Button>
+      </div>
     </div>
-    
-    </>
-    
   )
 }
 

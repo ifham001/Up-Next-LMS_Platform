@@ -60,30 +60,31 @@ export default function MiniCart({purchasedItems}:Props) {
 
   return (
     <ClientOnly>
-      <div className="bg-white rounded-2xl shadow-sm p-6 space-y-6 w-full">
-        <h2 className="text-lg font-bold text-gray-700">Order Summary</h2>
+      <div className="lg:sticky lg:top-24 w-full h-fit">
+      <div className="card p-6 space-y-6 w-full h-fit animate-fadeInUp delay-2">
+        <h2 className="text-base font-semibold text-text-primary">Order summary</h2>
 
         {cartItems.length > 0 ? (
-          <ul className="space-y-4">
+          <ul className="divide-y divide-border border-y border-border -mx-6">
             {cartItems.map((item) => (
-              <li key={item.id} className="flex items-center">
-                <div className="w-16 h-16 bg-gray-100 rounded-md flex-shrink-0 overflow-hidden">
+              <li key={item.id} className="group flex items-center gap-4 px-6 py-3 transition-colors hover:bg-surface-muted">
+                <div className="w-14 h-14 rounded-md flex-shrink-0 overflow-hidden border border-border bg-surface-muted">
                   <Image
                     src={item.url}
                     alt={item.title}
-                    width={64}
-                    height={64}
+                    width={56}
+                    height={56}
                     className="w-full h-full object-cover"
                   />
                 </div>
-                <div className="ml-4 flex-1">
-                  <p className="text-gray-700 font-medium">{item.title}</p>
-                  <p className="text-sm text-gray-500">By {item.tagline}</p>
+                <div className="flex-1 min-w-0">
+                  <p className="font-medium text-sm text-text-primary truncate">{item.title}</p>
+                  <p className="text-xs text-text-muted truncate">By {item.tagline}</p>
                 </div>
                 <div className="flex flex-col items-end">
-                  <p className="text-gray-700 font-semibold">₹{item.price}</p>
+                  <p className="tnum text-sm font-semibold text-text-primary">₹{item.price}</p>
                   <button
-                    className="text-xs text-red-500 mt-1"
+                    className="text-xs text-text-muted mt-1 transition-colors hover:text-error"
                     onClick={() => removeItemHandler(item.id)}
                   >
                     Remove
@@ -93,40 +94,43 @@ export default function MiniCart({purchasedItems}:Props) {
             ))}
           </ul>
         ) : (
-          <p className="text-gray-500 text-sm">Your cart is empty</p>
+          <p className="text-text-secondary text-sm leading-relaxed">Your cart is empty.</p>
         )}
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-end gap-2">
           <TextInput
-            label="Enter code"
+            label="Promo code"
             placeholder="Enter code"
             state={[coupon, setCoupon]}
             value={coupon}
           />
-          <Button className="mt-5">Apply</Button>
+          <Button variant="outline">Apply</Button>
         </div>
 
-        <div className="space-y-2 border-t pt-4">
-          <div className="flex justify-between text-sm text-gray-600">
+        <hr className="divider" />
+        <div className="space-y-2.5">
+          <div className="flex justify-between text-sm text-text-secondary">
             <span>Subtotal</span>
-            <span>₹{subtotal.toFixed(2)}</span>
+            <span className="tnum text-text-primary">₹{subtotal.toFixed(2)}</span>
           </div>
-          <div className="flex justify-between text-sm text-green-600">
+          <div className="flex justify-between text-sm text-text-secondary">
             <span>Discount</span>
-            <span>-₹0.00</span>
+            <span className="tnum text-success">-₹0.00</span>
           </div>
-          <div className="flex justify-between text-sm text-gray-600">
+          <div className="flex justify-between text-sm text-text-secondary">
             <span>Taxes</span>
-            <span>₹0.00</span>
+            <span className="tnum text-text-primary">₹0.00</span>
           </div>
         </div>
 
-        <div className="flex justify-between text-lg font-bold text-gray-700 border-t pt-4">
-          <span>Total</span>
-          <span>₹{subtotal.toFixed(2)}</span>
+        <hr className="divider" />
+        <div className="flex items-baseline justify-between">
+          <span className="text-sm font-medium text-text-secondary">Total</span>
+          <span className="font-display tnum text-2xl font-semibold text-text-primary">₹{subtotal.toFixed(2)}</span>
         </div>
 
-  
+
+      </div>
       </div>
     </ClientOnly>
   );

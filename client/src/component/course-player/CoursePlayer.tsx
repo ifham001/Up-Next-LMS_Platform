@@ -76,37 +76,50 @@ export default function CoursePlayer({ courseId }: Props) {
 
   if (isLoading) {
     return (
-      <div className="flex items-center justify-center h-screen">
-        <p className="text-gray-600">Loading...</p>
+      <div className="flex h-screen items-center justify-center bg-bg">
+        <div className="flex w-full max-w-sm flex-col gap-3 px-6">
+          <div className="skeleton h-4 w-32 rounded" />
+          <div className="skeleton h-6 w-full rounded" />
+          <div className="skeleton h-6 w-2/3 rounded" />
+        </div>
       </div>
     );
   }
 
   return (
     <>
-      {/* Header */}
-      <div className="sticky top-0 z-50 p-4 flex gap-4 bg-gray-700 text-white items-center">
-        <ArrowLeft
+      {/* Header — flat bordered bar */}
+      <div className="sticky top-0 z-50 flex items-center gap-4 border-b border-border bg-surface px-4 py-3.5 text-text-primary">
+        <button
           onClick={() => route.push("/user/learning")}
-          className="cursor-pointer"
-        />
-        <h1 className="text-lg md:text-xl font-semibold flex-1">
-          {courseContent?.courseName}
-        </h1>
+          aria-label="Back to learning"
+          className="inline-flex items-center justify-center rounded-md p-2 text-text-secondary transition-colors hover:bg-surface-muted hover:text-text-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/40"
+        >
+          <ArrowLeft size={20} strokeWidth={1.75} />
+        </button>
+        <div className="min-w-0 flex-1">
+          <p className="font-mono text-[0.7rem] font-bold uppercase tracking-[0.16em] text-brand-dark">
+            Now learning
+          </p>
+          <h1 className="truncate text-lg font-semibold leading-tight tracking-tight text-text-primary md:text-xl">
+            {courseContent?.courseName}
+          </h1>
+        </div>
 
         {/* Mobile toggle button */}
         <button
-          className="md:hidden p-2 bg-gray-600 rounded"
+          className="inline-flex items-center justify-center rounded-md p-2 text-text-secondary transition-colors hover:bg-surface-muted hover:text-text-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/40 md:hidden"
           onClick={() => setShowSections(!showSections)}
+          aria-label="Toggle course content"
         >
-          <List size={20} />
+          <List size={20} strokeWidth={1.75} />
         </button>
       </div>
 
       {/* Layout */}
-      <div className="flex w-screen h-[calc(100vh-64px)]">
+      <div className="flex h-[calc(100vh-64px)] w-screen bg-bg">
         {/* Left panel - lesson view */}
-        <div className="flex-grow h-full overflow-y-auto">
+        <div className="h-full flex-grow overflow-y-auto">
           <LeftPanel
             userCourseId={courseContent?.userCourseId || ""}
             activeItem={currentLesson}
@@ -116,7 +129,7 @@ export default function CoursePlayer({ courseId }: Props) {
         {/* Mobile backdrop */}
         {showSections && (
           <div
-            className="fixed inset-0 bg-black bg-opacity-40 z-40 md:hidden"
+            className="fixed inset-0 z-40 bg-text-primary/30 md:hidden"
             onClick={() => setShowSections(false)}
           />
         )}
@@ -124,14 +137,12 @@ export default function CoursePlayer({ courseId }: Props) {
         {/* Right panel - sections */}
         <div
           className={`
-            fixed top-0 right-0 h-full mt-15 md:mt-0 w-72 bg-white border-l border-gray-300 z-50
-            transform transition-transform duration-300
-            md:relative md:translate-x-0 md:w-80
+            fixed top-0 right-0 z-50 mt-15 h-full w-72 transform border-l border-border bg-surface transition-transform duration-300 md:mt-0
+            md:relative md:w-80 md:translate-x-0
             ${showSections ? "translate-x-0" : "translate-x-full md:translate-x-0"}
           `}
         >
-          <div className="h-full overflow-y-auto  ">
-            
+          <div className="h-full overflow-y-auto">
             <SectionList
               completePercent={calculateCourseCompletion(courseContent)}
               sections={courseContent?.sections || []}

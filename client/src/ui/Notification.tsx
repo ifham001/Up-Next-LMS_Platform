@@ -1,6 +1,6 @@
 "use client"
 import { useEffect } from "react";
-import { CheckCircle2, X } from "lucide-react";
+import { CheckCircle2, AlertCircle } from "lucide-react";
 import clsx from "clsx";
 import { useDispatch, useSelector } from "react-redux";
 import { hideNotification } from "@/store/slices/common/notification-slice";
@@ -27,12 +27,23 @@ export default function Notification() {
     >
       <div
         className={clsx(
-          "flex items-start gap-2 p-2 sm:p-4 rounded-xl shadow-lg text-white text-xs sm:text-sm",
-          type === "success" ? "bg-gray-700" : "bg-red-500"
+          "card relative flex items-start gap-3 p-4 text-text-primary text-xs sm:text-sm overflow-hidden shadow-md border-l-2",
+          type === "success" ? "border-l-success" : "border-l-error"
         )}
       >
-        <CheckCircle2 className="mt-0.5 shrink-0" size={16} />
-        <div className="flex-1">{message}</div>
+        <span
+          className={clsx(
+            "grid place-items-center size-8 shrink-0 rounded-full border border-border surface-muted",
+            type === "success" ? "text-success" : "text-error"
+          )}
+        >
+          {type === "success" ? (
+            <CheckCircle2 strokeWidth={1.75} size={16} />
+          ) : (
+            <AlertCircle strokeWidth={1.75} size={16} />
+          )}
+        </span>
+        <div className="flex-1 self-center text-text-secondary leading-relaxed">{message}</div>
       </div>
     </div>
   );

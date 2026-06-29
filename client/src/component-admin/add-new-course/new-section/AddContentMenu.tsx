@@ -15,7 +15,6 @@ import {
   Video,
   FileText,
   Paperclip,
-  StepBack,
   Save,
   DeleteIcon
 } from "lucide-react";
@@ -56,21 +55,21 @@ const PublishOrDeleteCourse = ({
         : "Are you sure you want to delete this course?";
   
     return (
-      <div className="p-4">
-        <h2 className="mb-6">{promptMessage}</h2>
-        <div className="space-y-3 flex justify-around">
-          <Button
-            onClick={onClose}
-            className="flex items-center rounded-lg bg-red-500 hover:bg-red-300 active:scale-95 transition transform"
-          >
+      <div className="p-1">
+        <h2 className="mb-6 text-lg font-semibold tracking-tight text-text-primary">{promptMessage}</h2>
+        <div className="flex justify-end gap-3">
+          <Button variant="ghost" onClick={onClose}>
             Cancel
           </Button>
-          <Button
-            onClick={publishOrDeleteCourseHandler}
-            className="flex items-center h-10 rounded-lg bg-green-500 hover:bg-green-300 active:scale-95 transition transform"
-          >
-            {type === "publish" ? "Publish Course" : "Delete Course"}
-          </Button>
+          {type === "publish" ? (
+            <Button onClick={publishOrDeleteCourseHandler}>
+              Publish course
+            </Button>
+          ) : (
+            <Button variant="danger" onClick={publishOrDeleteCourseHandler}>
+              Delete course
+            </Button>
+          )}
         </div>
       </div>
     );
@@ -95,48 +94,48 @@ const AddContent = ({ sectionId, courseId }: Props) => {
 
   const actions = [
     {
-      icon: <Plus className="w-5 h-5" />,
-      label: "Create Section",
+      icon: <Plus className="h-5 w-5" strokeWidth={1.75} />,
+      label: "Create section",
       onClick: () =>
         handleOpen(
           <SectionBuilder courseId={courseId} onClose={() => setIsOpen(false)} />
         ),
     },
     {
-      icon: <Video className="w-5 h-5" />,
-      label: "Add Video",
+      icon: <Video className="h-5 w-5" strokeWidth={1.75} />,
+      label: "Add video",
       onClick: () =>
         handleOpen(
           <VideoEditor sectionId={sectionId} onClose={() => setIsOpen(false)} />
         ),
     },
     {
-      icon: <FileText className="w-5 h-5" />,
-      label: "Add Quiz",
+      icon: <FileText className="h-5 w-5" strokeWidth={1.75} />,
+      label: "Add quiz",
       onClick: () =>
         handleOpen(
           <QuizBuilder sectionId={sectionId} onClose={() => setIsOpen(false)} />
         ),
     },
     {
-      icon: <Paperclip className="w-5 h-5" />,
-      label: "Add Resource",
+      icon: <Paperclip className="h-5 w-5" strokeWidth={1.75} />,
+      label: "Add resource",
       onClick: () =>
         handleOpen(
           <ResourceEditor sectionId={sectionId} onClose={() => setIsOpen(false)} />
         ),
     },
     {
-      icon: <Save className="w-5 h-5" />,
-      label: "Publish Course",
+      icon: <Save className="h-5 w-5" strokeWidth={1.75} />,
+      label: "Publish course",
       onClick: () =>
         handleOpen(
           <PublishOrDeleteCourse type={'publish'} courseId={courseId} onClose={() => setIsOpen(false)} />
         ),
     },
     {
-        icon: <DeleteIcon className="w-5 h-5" />,
-        label: "Delete Course",
+        icon: <DeleteIcon className="h-5 w-5" strokeWidth={1.75} />,
+        label: "Delete course",
         onClick: () =>
           handleOpen(
             <PublishOrDeleteCourse type={'delete'} courseId={courseId} onClose={() => setIsOpen(false)} />
@@ -150,19 +149,34 @@ const AddContent = ({ sectionId, courseId }: Props) => {
         {activeComponent}
       </PopUpModal>
 
-      <div  className="p-4  left-0   min-h-screen">
-        <h2 className="text-xl font-bold mb-6">Add Content</h2>
-        <div className="space-y-3">
-          {actions.map((action, idx) => (
-            <button
-              key={idx}
-              onClick={action.onClick}
-              className="w-full flex items-center gap-3 p-3 rounded-lg bg-gray-50 hover:bg-gray-300 active:scale-95 transition transform"
-            >
-              <div className="bg-white p-2 rounded-md shadow-sm">{action.icon}</div>
-              <span className="text-sm font-medium">{action.label}</span>
-            </button>
-          ))}
+      <div className="card sticky top-6 h-fit w-full shrink-0 p-5 lg:w-64 animate-fadeInUp">
+        <h2 className="mb-4 text-sm font-semibold tracking-tight text-text-primary">Add content</h2>
+        <div className="space-y-1">
+          {actions.map((action, idx) => {
+            const isDanger = action.label === "Delete course";
+            return (
+              <button
+                key={idx}
+                onClick={action.onClick}
+                className={
+                  isDanger
+                    ? "group flex w-full items-center gap-3 rounded-md p-2 text-error transition-colors hover:bg-error-soft focus:outline-none focus-visible:ring-2 focus-visible:ring-error/40"
+                    : "group flex w-full items-center gap-3 rounded-md p-2 text-text-secondary transition-colors hover:bg-surface-muted hover:text-text-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/40"
+                }
+              >
+                <div
+                  className={
+                    isDanger
+                      ? "flex size-8 items-center justify-center rounded-md border border-border bg-error-soft text-error"
+                      : "flex size-8 items-center justify-center rounded-md border border-border bg-surface-muted text-text-secondary group-hover:text-text-primary"
+                  }
+                >
+                  {action.icon}
+                </div>
+                <span className="text-sm font-medium">{action.label}</span>
+              </button>
+            );
+          })}
         </div>
       </div>
     </>

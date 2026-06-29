@@ -1,9 +1,8 @@
 "use client";
 import React, { useState } from "react";
-import { HelpCircle, Trash } from "lucide-react";
-import Button from "@/ui/Button";
-import PopUpModal from "@/ui/PopUpModal";
+import { Trash } from "lucide-react";
 import TextInput from "@/ui/TextInput";
+import Button from "@/ui/Button";
 import { createQuizApi } from "@/api/admin/upload-course/AddQuiz";
 import { useDispatch } from "react-redux";
 import Loading from "@/ui/Loading";
@@ -128,14 +127,21 @@ export default function QuizBuilder({ sectionId, onClose }: Props) {
     
 
       
-        <div className="space-y-6 p-4 max-h-[80vh] overflow-y-auto">
-          <h1 className="text-xl font-bold text-center">Create a Quiz</h1>
+        <div className="max-h-[80vh] space-y-6 overflow-y-auto p-4">
+          <div>
+            <h1 className="text-xl font-semibold tracking-tight text-text-primary">
+              Create a quiz
+            </h1>
+            <p className="mt-1 text-sm text-text-secondary">
+              Add a title, then build questions with at least two options each.
+            </p>
+          </div>
 
           {/* Quiz metadata */}
-          <div className="space-y-4 bg-gray-50 p-4 rounded shadow-sm">
-            <TextInput label="Quiz Title" state={[quizTitle, setQuizTitle]} required />
+          <div className="space-y-4 rounded-lg border border-border bg-surface-muted p-5">
+            <TextInput label="Quiz title" state={[quizTitle, setQuizTitle]} required />
             <TextInput
-              label="Quiz Description"
+              label="Quiz description"
               state={[quizDescription, setQuizDescription]}
               required
               textarea={true}
@@ -144,31 +150,42 @@ export default function QuizBuilder({ sectionId, onClose }: Props) {
 
           {/* Existing questions */}
           {questions.length > 0 && (
-            <div className="space-y-2">
-              <h2 className="text-lg font-semibold">Added Questions</h2>
+            <div className="space-y-3">
+              <h2 className="text-sm font-medium text-text-secondary">Added questions</h2>
               {questions.map((q, idx) => (
                 <div
                   key={q.id}
-                  className="p-4 border rounded bg-white shadow-sm text-sm"
+                  className="card p-5 text-sm"
                 >
-                  <div className="flex justify-between">
-                    <p className="font-medium">
+                  <div className="flex items-start justify-between gap-3">
+                    <p className="font-medium text-text-primary">
                       {idx + 1}. {q.question}
                     </p>
                     <button
                       onClick={() => deleteQuestion(q.id)}
-                      className="text-red-600 hover:text-red-800"
+                      aria-label="Delete question"
+                      className="shrink-0 rounded-md p-1 text-text-muted transition-colors hover:bg-error-soft hover:text-error focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/40"
                     >
-                      <Trash size={16} />
+                      <Trash size={16} strokeWidth={1.75} />
                     </button>
                   </div>
-                  <ul className="ml-5 list-disc text-gray-700 mt-2">
+                  <ul className="mt-3 space-y-1.5">
                     {q.options.map((opt, i) => (
-                      <li key={i}>
-                        {opt.option}
+                      <li
+                        key={i}
+                        className={
+                          opt.is_correct
+                            ? "flex items-center gap-2 rounded-md border border-border bg-success-soft px-2.5 py-1.5 text-text-primary"
+                            : "flex items-center gap-2 rounded-md border border-border bg-surface px-2.5 py-1.5 text-text-secondary"
+                        }
+                      >
+                        <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full border border-border bg-surface-muted text-xs font-medium text-text-secondary">
+                          {String.fromCharCode(65 + i)}
+                        </span>
+                        <span>{opt.option}</span>
                         {opt.is_correct && (
-                          <span className="text-green-600 font-semibold ml-1">
-                            (Correct)
+                          <span className="ml-auto rounded-full bg-success px-2.5 py-0.5 text-xs font-medium text-text-inverted">
+                            Correct
                           </span>
                         )}
                       </li>
@@ -180,8 +197,8 @@ export default function QuizBuilder({ sectionId, onClose }: Props) {
           )}
 
           {/* Add new question */}
-          <div className="space-y-4 bg-gray-100 p-4 rounded shadow-inner">
-            <h2 className="text-lg font-semibold">Add a Question</h2>
+          <div className="space-y-4 rounded-lg border border-border bg-surface-muted p-5">
+            <h2 className="text-sm font-medium text-text-secondary">Add a question</h2>
 
             <TextInput
               label="Question"
@@ -191,12 +208,13 @@ export default function QuizBuilder({ sectionId, onClose }: Props) {
 
             <div className="space-y-2">
               {options.map((opt, idx) => (
-                <div key={idx} className="flex items-center gap-2">
+                <div key={idx} className="flex items-center gap-3 rounded-lg border border-border bg-surface px-3 py-2 transition-colors hover:border-border-strong">
                   <input
                     type="radio"
                     name="correctAnswer"
                     checked={correctAnswer === idx}
                     onChange={() => setCorrectAnswer(idx)}
+                    className="h-4 w-4 shrink-0 accent-accent"
                   />
                   <input
                     type="text"
@@ -207,7 +225,7 @@ export default function QuizBuilder({ sectionId, onClose }: Props) {
                       setOptions(newOptions);
                     }}
                     placeholder={`Option ${String.fromCharCode(65 + idx)}`}
-                    className="flex-1 p-2 border rounded"
+                    className="flex-1 rounded-md border border-input-border bg-input-bg px-3 py-2 text-sm text-text-primary placeholder:text-input-placeholder focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/40"
                   />
                 </div>
               ))}
@@ -216,43 +234,30 @@ export default function QuizBuilder({ sectionId, onClose }: Props) {
                 onClick={() =>
                   setOptions([...options, { option: "", is_correct: false }])
                 }
-                className="text-blue-600 text-sm"
+                className="link-accent text-sm font-medium"
               >
-                + Add Option
+                + Add option
               </button>
             </div>
 
-            <div className="flex justify-between pt-4">
-              <div className="flex gap-2">
-                <Button
-                  onClick={addQuestion}
-                  className="bg-blue-600 text-white"
-                >
-                  Save Question
-                </Button>
-                <Button
-                  onClick={resetQuestionForm}
-                  className="bg-gray-300 text-black"
-                >
-                  Add Another Question
-                </Button>
-              </div>
+            <div className="flex flex-wrap gap-2 pt-2">
+              <Button size="sm" onClick={addQuestion}>
+                Save question
+              </Button>
+              <Button variant="ghost" size="sm" onClick={resetQuestionForm}>
+                Clear fields
+              </Button>
             </div>
           </div>
 
           {/* Save quiz */}
-          <div className="flex justify-between pt-6">
-            <Button
-              onClick={onClose}
-              className="bg-red-500 text-white"
-            >
+          <div className="divider" />
+          <div className="flex justify-between gap-3">
+            <Button variant="ghost" onClick={onClose}>
               Cancel
             </Button>
-            <Button
-              onClick={saveQuiz}
-              className="bg-green-600 text-white"
-            >
-              Upload Quiz
+            <Button onClick={saveQuiz}>
+              Upload quiz
             </Button>
           </div>
         </div>

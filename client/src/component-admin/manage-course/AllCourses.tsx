@@ -2,6 +2,7 @@
 import { getlifeTimeCourseDetailApi } from '@/api/admin/manage-course/ManageCourses'
 import AdminCourseCard from '@/ui/AdminCourseCard'
 import Loading from '@/ui/Loading'
+import { BookOpen } from 'lucide-react'
 import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 
@@ -49,26 +50,31 @@ function AllCourses({}: Props) {
   }
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
       {courseDetails.length > 0 ? (
-        courseDetails.map(course => (
-          <AdminCourseCard
-            key={course.courseId}
-            id={course.courseId}
-            title={course.courseName}
-            thumbnail={course.thumbnail}
-            price={course.price.toString()}
-            studentsEnrolled={course.totalEnrolled}
-            onArchive={() => courseArchiveHandler(course.courseId)}
-            onChangePrice={() => coursePriceChangeHandler(course.courseId)}
-            onDelete={() => courseDeleteHandler(course.courseId)}
-            courseStatus={course.status}
-          />
+        courseDetails.map((course, i) => (
+          <div key={course.courseId} className={`animate-fadeInUp delay-${(i % 4) + 1}`}>
+            <AdminCourseCard
+              id={course.courseId}
+              title={course.courseName}
+              thumbnail={course.thumbnail}
+              price={course.price.toString()}
+              studentsEnrolled={course.totalEnrolled}
+              onArchive={() => courseArchiveHandler(course.courseId)}
+              onChangePrice={() => coursePriceChangeHandler(course.courseId)}
+              onDelete={() => courseDeleteHandler(course.courseId)}
+              courseStatus={course.status}
+            />
+          </div>
         ))
       ) : (
-        <p className="col-span-full text-center text-gray-500">
-          No courses found.
-        </p>
+        <div className="card col-span-full flex flex-col items-center justify-center py-20 text-center animate-fadeInUp">
+          <div className="mb-4 flex size-11 items-center justify-center rounded-full bg-brand-50 text-brand-dark">
+            <BookOpen size={20} strokeWidth={1.75} />
+          </div>
+          <p className="text-sm font-medium text-text-primary">No courses yet</p>
+          <p className="mt-1.5 text-sm text-text-muted">Published courses will appear here.</p>
+        </div>
       )}
     </div>
   )

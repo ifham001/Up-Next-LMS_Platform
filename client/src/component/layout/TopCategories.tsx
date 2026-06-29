@@ -1,48 +1,66 @@
 'use client';
 
 import React from 'react';
-import { BookOpen, Briefcase, Palette, Brain } from 'lucide-react';
+import { BookOpen, Briefcase, Palette, Brain, ArrowUpRight } from 'lucide-react';
 
 const categories = [
   {
     title: 'Development',
-    icon: <BookOpen className="w-6 text-[#8c52ff] h-6" />,
-    courses: '450+ Courses',
+    Icon: BookOpen,
+    blurb: 'Frontend, backend, mobile and the tooling around them.',
   },
   {
     title: 'Business',
-    icon: <Briefcase className="w-6 text-[#8c52ff] h-6" />,
-    courses: '320+ Courses',
+    Icon: Briefcase,
+    blurb: 'Operations, finance and the basics of running a team.',
   },
   {
     title: 'Design',
-    icon: <Palette className="w-6 text-[#8c52ff] h-6" />,
-    courses: '280+ Courses',
+    Icon: Palette,
+    blurb: 'Product, interface and visual design from the ground up.',
   },
   {
     title: 'Psychology',
-    icon: <Brain className="w-6 text-[#8c52ff] h-6" />,
-    courses: '190+ Courses',
+    Icon: Brain,
+    blurb: 'How people think, decide and learn over time.',
   },
 ];
 
 const TopCategories = () => {
   return (
-    <section className="bg-white py-16 px-4">
-      <div className="max-w-7xl mx-auto text-center">
-        <h2 className="text-2xl md:text-3xl font-semibold mb-10">Explore Top Categories</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
-          {categories.map((category, idx) => (
-            <div
-              key={idx}
-              className="bg-white p-6 rounded-lg shadow hover:shadow-md transition"
+    <section className="px-4 sm:px-6 lg:px-8 py-20">
+      <div className="mx-auto max-w-[1400px]">
+        <div className="mb-10 max-w-2xl animate-fadeInUp">
+          <span className="eyebrow">Find your path</span>
+          <h2 className="display mt-3 text-3xl font-semibold text-text-primary md:text-4xl">
+            Browse by <span className="text-accent">category</span>
+          </h2>
+          <p className="mt-3 leading-relaxed text-text-secondary">
+            Find the right path for your goals across our most popular subject areas.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          {categories.map(({ title, Icon, blurb }, idx) => (
+            <a
+              key={title}
+              href="/explore"
+              className={`card-interactive group flex flex-col gap-4 p-6 animate-fadeInUp delay-${(idx % 3) + 1}`}
             >
-              <div className="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4 text-gray-600">
-                {category.icon}
+              <div className="flex items-start justify-between">
+                <span className="inline-flex size-10 items-center justify-center rounded-xl bg-brand-50 text-brand-dark transition-colors group-hover:bg-brand group-hover:text-white">
+                  <Icon className="size-5" strokeWidth={1.75} />
+                </span>
+                <ArrowUpRight
+                  className="size-4 text-text-muted transition-colors group-hover:text-brand-dark"
+                  strokeWidth={1.75}
+                />
               </div>
-              <h3 className="font-medium">{category.title}</h3>
-              <p className="text-sm text-gray-500">{category.courses}</p>
-            </div>
+              <div>
+                <h3 className="font-display text-lg font-semibold text-text-primary">{title}</h3>
+                <p className="mt-1.5 text-sm leading-relaxed text-text-secondary">{blurb}</p>
+              </div>
+            </a>
           ))}
         </div>
       </div>

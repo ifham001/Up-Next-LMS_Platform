@@ -2,6 +2,7 @@ import { Context } from "hono";
 import { z } from "zod";
 import { archiveCourse, courseFinalize, createCourse, deleteCourse,lifeTimeCourseDetail  ,getDraftCourse, updatedPrice} from "../../queries/admin/course.queries";
 import { uploadFileToGCS, uploadThumbnailToGCS } from '../../util/gcs-upload'
+import { getErrorMessage } from '../../util/errors'
 
 
 const toArray = (val: unknown) => {
@@ -80,14 +81,14 @@ export const getDraftCourses = async (c: Context) => {
         }
         return c.json({ courses, success: true }, 200);
     } catch (error) {
-        return c.json({ error: error.message, success: false }, 400);
+        return c.json({ error: getErrorMessage(error), success: false }, 400);
     }
 }
 export const finalizeCourse = async (c: Context) => {
     try {
         const courseId = await c.req.param('courseId');
         const course = await courseFinalize(courseId);
-      c.json(course)
+        return c.json(course)
     } catch (error) {
         return c.json({ message:'Course cannot be submitted try again!', success: false}, 200);
 

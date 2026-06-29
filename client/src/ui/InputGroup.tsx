@@ -31,20 +31,23 @@ const InputGroup: React.FC<Props> = ({ title, count, onChange }) => {
   const showError = (index: number) => inputs[index].trim() === '' && touched[index];
 
   const inputClass = (index: number) =>
-    `px-3 py-2 rounded-lg focus:outline-none w-full
-     bg-[var(--color-input-bg)] text-[var(--color-text-primary)]
-     border ${
+    `px-4 py-3 rounded-md text-sm sm:text-base focus:outline-none w-full
+     bg-input-bg text-text-primary placeholder:text-input-placeholder
+     border transition-colors duration-150 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-bg ${
        showError(index)
-         ? 'border-[var(--color-error)] focus:ring-2 focus:ring-[var(--color-error)]'
-         : 'border-[var(--color-input-border)] focus:ring-2 focus:ring-[var(--color-brand)]'
+         ? 'border-error focus-visible:ring-error/40'
+         : 'border-input-border hover:border-border-strong focus-visible:ring-accent/40'
      }`;
 
   return (
-    <div className="mb-6">
-      <p className="text-lg font-medium mb-3">{title}</p>
+    <div className="mb-8">
+      <h3 className="text-lg font-semibold tracking-tight text-text-primary mb-4">{title}</h3>
       <div className="flex flex-col gap-3">
         {Array.from({ length: count }).map((_, index) => (
-          <div key={index} className="flex flex-col gap-1">
+          <div key={index} className="flex flex-col gap-1.5">
+            <label className="text-sm font-medium text-text-secondary">
+              {title} {index + 1}
+            </label>
             <input
               value={inputs[index]}
               onChange={(e) => handleChange(index, e.target.value)}
@@ -54,7 +57,7 @@ const InputGroup: React.FC<Props> = ({ title, count, onChange }) => {
               required
             />
             {showError(index) && (
-              <p className="text-xs text-[var(--color-error)]">
+              <p className="text-xs text-error">
                 This field is required.
               </p>
             )}

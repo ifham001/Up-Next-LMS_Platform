@@ -1,7 +1,7 @@
 "use client";
 
 import { Items } from "./SectionList";
-import { FileText } from "lucide-react";
+import { Check, FileText } from "lucide-react";
 
 interface ResourceLessonItemProps {
   item: Items;
@@ -16,16 +16,25 @@ export default function ResourceLessonItem({
 }: ResourceLessonItemProps) {
   return (
     <div
-      className={`flex items-center gap-3 p-3 cursor-pointer hover:bg-gray-50 ${
-        isActive ? "bg-purple-200" : ""
+      className={`group flex cursor-pointer items-center gap-3 rounded-md border-l-2 px-3 py-2.5 transition-colors ${
+        isActive
+          ? "border-brand bg-brand-50 text-brand-dark"
+          : "border-transparent hover:bg-surface-muted"
       }`}
       onClick={onSelect}
     >
-      <FileText size={18} className="text-purple-500" />
-      <div className="flex flex-col">
-        <span className="text-sm font-medium">{item.title}</span>
-       
-      </div>
+      {item.completed ? (
+        <Check size={18} strokeWidth={1.75} className="text-success shrink-0" />
+      ) : (
+        <FileText
+          size={18}
+          strokeWidth={1.75}
+          className={`shrink-0 transition-colors ${isActive ? "text-brand" : "text-text-muted group-hover:text-text-secondary"}`}
+        />
+      )}
+      <span className={`text-sm font-medium leading-snug truncate ${isActive ? "text-brand-dark" : "text-text-primary"}`}>
+        {item.title}
+      </span>
     </div>
   );
 }

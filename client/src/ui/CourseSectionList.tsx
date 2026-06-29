@@ -23,13 +23,13 @@ type Props = {
 
 const CourseSectionList: React.FC<Props> = ({ sections, onItemClick }) => {
   return (
-    <aside className="w-64 border-r border-gray-200 p-4 overflow-y-auto h-screen">
-      <h2 className="text-lg font-semibold mb-2">Course Content</h2>
-      <p className="text-sm text-gray-500 mb-4">Introduction to UX Design</p>
+    <aside className="card w-64 m-3 p-6 overflow-y-auto h-[calc(100vh-1.5rem)]">
+      <h2 className="text-lg font-semibold tracking-tight text-text-primary mb-1">Course content</h2>
+      <p className="text-sm text-text-muted mb-6">Introduction to UX Design</p>
 
       {sections.map((section, sectionIdx) => (
-        <div key={sectionIdx} className="mb-6">
-          <h3 className="text-sm font-medium text-gray-600 mb-2">
+        <div key={sectionIdx} className="mb-7">
+          <h3 className="text-xs font-semibold uppercase tracking-[0.12em] text-text-muted mb-2.5">
             Section {sectionIdx + 1}: {section.name}
           </h3>
 
@@ -38,16 +38,18 @@ const CourseSectionList: React.FC<Props> = ({ sections, onItemClick }) => {
               <li
                 key={idx}
                 onClick={() => onItemClick(item)}
-                className={`p-2 rounded cursor-pointer ${
-                  item.isCurrent ? 'bg-gray-200 font-medium' : 'hover:bg-gray-100'
+                className={`p-2.5 rounded-md cursor-pointer border transition-colors duration-150 ${
+                  item.isCurrent
+                    ? 'border-brand bg-brand-50 text-brand-dark font-medium'
+                    : 'border-transparent text-text-secondary hover:bg-surface-muted hover:text-text-primary'
                 }`}
               >
-                <div className="flex justify-between items-center">
+                <div className="flex justify-between items-center gap-2">
                   <span>{item.title}</span>
-                  <span className="text-xs text-gray-500">{item.duration}</span>
+                  <span className="tnum text-xs text-text-muted">{item.duration}</span>
                 </div>
                 {item.type === 'assignment' && item.dueDate && (
-                  <p className="text-xs text-blue-500">Due: {item.dueDate}</p>
+                  <p className="text-xs text-text-muted mt-0.5">Due: {item.dueDate}</p>
                 )}
               </li>
             ))}

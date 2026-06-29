@@ -16,6 +16,7 @@ export const purchaseSchema = z.object({
   pricePaid: z.number().nonnegative("pricePaid must be >= 0"),
   payment_mode: z.enum(["Card", "UPI"]),
   purchased_courses: z.array(z.string().min(1, "At least one course must be purchased")),
+  couponCode: z.string().min(3).max(40).optional(),
 });
 
 export const makePurchaseHandler = async (c: Context) => {
@@ -25,17 +26,17 @@ export const makePurchaseHandler = async (c: Context) => {
     const data = await purchaseSchema.parse(body);
 
     const result = await makePurchase(data);
-    
+
     if (!result.success) {
-      return c.json({ message: "Failed to purchase course", success: false }, 401);
+      return c.json({ message: result.message ?? "Failed to purchase course", success: false }, 400);
     }
- 
 
     return c.json({
-      orderId:result.orderId,
+      orderId: result.orderId,
+      pricePaid: result.pricePaid,
+      discount: result.discount,
       success: true,
       message: "Course purchased successfully",
-   
     });
   } catch (error) {
 

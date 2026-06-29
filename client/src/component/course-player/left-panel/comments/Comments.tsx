@@ -2,6 +2,7 @@ import { addCommentApi, replyCommentApi, getCommentsApi } from "@/api/user/comme
 import { RootState } from "@/store/Store";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { MessagesSquare, SendHorizontal } from "lucide-react";
 
 // Sub-comment type
 type SubCommentType = {
@@ -93,88 +94,111 @@ export default function Comments({ videoId }: { videoId: string }) {
   }, [videoId]);
 
   return (
-    <div className="space-y-6">
-      {comments.map((comment) => (
-        <div key={comment.id} className="pb-4 border-b border-gray-200">
-          {/* Main Comment */}
-          <div className="flex items-start gap-3">
-            <div className="bg-blue-500 text-white w-9 h-9 flex items-center justify-center rounded-full font-bold">
-              {comment.avatarLetter}
-            </div>
+    <div>
+      <div className="mb-6 flex items-center gap-2">
+        <MessagesSquare size={18} strokeWidth={1.75} className="text-text-secondary" />
+        <h2 className="text-lg font-semibold tracking-tight text-text-primary">
+          {comments.length > 0 ? (
+            <>
+              <span className="tnum text-accent">{comments.length}</span>{" "}
+              {comments.length === 1 ? "comment" : "comments"}
+            </>
+          ) : (
+            "Comments"
+          )}
+        </h2>
+      </div>
 
-            <div className="flex-1">
-              <div className="flex items-center gap-2 text-sm text-gray-500">
-                <p className="font-semibold text-gray-900">{comment.name}</p>
-                <span>•</span>
-                <span>{timeAgo(comment.createdAt)}</span>
-              </div>
+      {comments.length === 0 ? (
+        <p className="rounded-lg border border-border bg-surface-muted px-4 py-6 text-center text-sm text-text-secondary">
+          No comments yet. Start the discussion below.
+        </p>
+      ) : (
+        <div className="divide-y divide-border border-y border-border">
+          {comments.map((comment) => (
+            <div key={comment.id} className="py-4">
+              {/* Main Comment */}
+              <div className="flex items-start gap-3">
+                <div className="flex size-9 shrink-0 items-center justify-center rounded-full bg-brand-50 text-sm font-medium text-text-primary">
+                  {comment.avatarLetter}
+                </div>
 
-              <p className="text-gray-800 mt-1">{comment.content}</p>
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center gap-2 text-sm text-text-muted">
+                    <p className="font-medium text-text-primary">{comment.name}</p>
+                    <span>•</span>
+                    <span>{timeAgo(comment.createdAt)}</span>
+                  </div>
 
-              <button
-                onClick={() => setReplyingTo(comment.id)}
-                className="text-sm text-blue-500 hover:underline mt-1"
-              >
-                Reply
-              </button>
+                  <p className="mt-1 leading-relaxed text-text-secondary">{comment.content}</p>
 
-              {/* Reply Input */}
-              {replyingTo === comment.id && (
-                <div className="flex items-center gap-2 mt-2 ml-1 bg-gray-50 p-2 rounded-lg">
-                  <input
-                    type="text"
-                    value={replyText}
-                    onChange={(e) => setReplyText(e.target.value)}
-                    placeholder="Write a reply..."
-                    className="flex-1 border border-gray-300 rounded-lg px-3 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
-                  />
                   <button
-                    onClick={() => handleAddReply(comment.id)}
-                    className="bg-blue-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-blue-600"
+                    onClick={() => setReplyingTo(comment.id)}
+                    className="mt-1.5 text-sm font-medium text-text-secondary transition-colors hover:text-text-primary"
                   >
                     Reply
                   </button>
-                </div>
-              )}
 
-              {/* Replies */}
-              {comment.replies && comment.replies.length > 0 && (
-                <div className="mt-3 ml-4 border-l-2 border-gray-200 pl-4 space-y-3">
-                  {comment.replies.map((reply) => (
-                    <div key={reply.id} className="flex items-start gap-3">
-                      <div className="bg-green-500 text-white w-8 h-8 flex items-center justify-center rounded-full font-bold">
-                        {reply.avatarLetter}
-                      </div>
-                      <div>
-                        <div className="flex items-center gap-2 text-xs text-gray-500">
-                          <p className="font-semibold text-gray-900">{reply.name}</p>
-                          <span>•</span>
-                          <span>{timeAgo(reply.createdAt)}</span>
-                        </div>
-                        <p className="text-gray-800 mt-1 text-sm">{reply.content}</p>
-                      </div>
+                  {/* Reply Input */}
+                  {replyingTo === comment.id && (
+                    <div className="mt-3 flex items-center gap-2">
+                      <input
+                        type="text"
+                        value={replyText}
+                        onChange={(e) => setReplyText(e.target.value)}
+                        placeholder="Write a reply"
+                        className="flex-1 rounded-full border border-input-border bg-input-bg px-4 py-1.5 text-sm text-text-primary placeholder:text-input-placeholder transition-colors focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/30"
+                      />
+                      <button
+                        onClick={() => handleAddReply(comment.id)}
+                        className="btn-primary inline-flex items-center gap-1.5 px-4 py-1.5 text-sm font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/40"
+                      >
+                        Reply
+                      </button>
                     </div>
-                  ))}
+                  )}
+
+                  {/* Replies */}
+                  {comment.replies && comment.replies.length > 0 && (
+                    <div className="mt-3 ml-2 space-y-3 border-l border-border pl-4">
+                      {comment.replies.map((reply) => (
+                        <div key={reply.id} className="flex items-start gap-3">
+                          <div className="flex size-8 shrink-0 items-center justify-center rounded-full bg-surface-muted text-xs font-medium text-text-secondary">
+                            {reply.avatarLetter}
+                          </div>
+                          <div className="min-w-0">
+                            <div className="flex items-center gap-2 text-xs text-text-muted">
+                              <p className="font-medium text-text-primary">{reply.name}</p>
+                              <span>•</span>
+                              <span>{timeAgo(reply.createdAt)}</span>
+                            </div>
+                            <p className="mt-1 text-sm leading-relaxed text-text-secondary">{reply.content}</p>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
                 </div>
-              )}
+              </div>
             </div>
-          </div>
+          ))}
         </div>
-      ))}
+      )}
 
       {/* Add Comment at the End */}
-      <div className="flex items-center gap-2 border-t border-gray-300 pt-4">
+      <div className="mt-5 flex items-center gap-2">
         <input
           type="text"
           value={newComment}
           onChange={(e) => setNewComment(e.target.value)}
-          placeholder="Add your comment..."
-          className="flex-1 border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
+          placeholder="Add your comment"
+          className="flex-1 rounded-full border border-input-border bg-input-bg px-4 py-2.5 text-sm text-text-primary placeholder:text-input-placeholder transition-colors focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/30"
         />
         <button
           onClick={handleAddComment}
-          className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600"
+          className="btn-primary inline-flex items-center gap-1.5 px-5 py-2.5 text-sm font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/40"
         >
+          <SendHorizontal size={15} strokeWidth={1.75} />
           Comment
         </button>
       </div>

@@ -9,24 +9,13 @@ import ClientOnly from '@/util/CilentOnly';
 type Params = {courseId:string};
 
 
-async function page({ params }: { params: Promise<Params> }) {
+function page({ params }: { params: Promise<Params> }) {
   const {courseId} =  React.use(params);
 
   return (
-
-    <div> 
-      
-   
-   <ClientOnly>
-   <CourseContent courseId={courseId}/>
-   </ClientOnly>
-          
-      
-
-
-   
-    
-       </div>
+    <ClientOnly>
+      <CourseContent courseId={courseId} />
+    </ClientOnly>
   )
 }
 

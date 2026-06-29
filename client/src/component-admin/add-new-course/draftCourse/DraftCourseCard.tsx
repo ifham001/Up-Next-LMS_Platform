@@ -21,33 +21,39 @@ export default function DraftCourseCard({
  const getDraftCourses =()=>{
   router.push(`/admin/add-new-course/${courseId}`)
  }
+  const seed = encodeURIComponent(title || "untitled-course");
+  const imgSrc = thumbnail
+    ? (thumbnail as unknown as string)
+    : `https://picsum.photos/seed/${seed}/480/270`;
+
   return (
     <div
       onClick={getDraftCourses}
-      className="flex flex-col items-center border rounded-lg p-4 bg-white shadow hover:shadow-lg cursor-pointer transition"
+      role="button"
+      tabIndex={0}
+      onKeyDown={(e) => (e.key === "Enter" || e.key === " ") && getDraftCourses()}
+      className="card-interactive group mb-4 flex cursor-pointer flex-col overflow-hidden p-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/40"
     >
       {/* Thumbnail */}
-      {thumbnail ? (
+      <div className="aspect-video w-full overflow-hidden bg-surface-muted">
         <img
-          src={thumbnail}
-          alt="Course Thumbnail"
-          className="w-full h-40 object-cover rounded mb-4"
+          src={imgSrc}
+          alt={`Thumbnail for ${title || "untitled course"}`}
+          className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
         />
-      ) : (
-        <div className="w-full h-40 bg-gray-200 flex items-center justify-center rounded mb-4">
-          <p className="text-gray-500">No Thumbnail</p>
-        </div>
-      )}
+      </div>
 
-      {/* Course Title */}
-      <h3 className="text-lg font-semibold text-gray-800 mb-2 text-center line-clamp-2">
-        {title || "Untitled Course"}
-      </h3>
+      <div className="flex flex-col gap-2.5 p-5">
+        {/* Course title */}
+        <h3 className="line-clamp-2 text-base font-semibold tracking-tight text-text-primary">
+          {title || "Untitled course"}
+        </h3>
 
-      {/* Course Price */}
-      <p className="text-gray-600 font-medium">
-        {price ? `₹${price}` : "Free"}
-      </p>
+        {/* Course price */}
+        <span className="chip tnum font-display w-fit">
+          {price ? `₹${price}` : "Free"}
+        </span>
+      </div>
     </div>
   );
 }

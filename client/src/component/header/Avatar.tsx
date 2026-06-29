@@ -41,28 +41,32 @@ function Avatar({ token, logoutHandler }: Props) {
 
   return (
     <div className="relative" ref={menuRef}>
-      <button onClick={() => setIsOpen(!isOpen)} className="flex items-center">
-        <CircleUserRound className="w-6 h-6 md:w-8 md:h-8 text-gray-700 hover:text-[#8c52ff] transition" />
+      <button
+        onClick={() => setIsOpen(!isOpen)}
+        aria-label="Account menu"
+        className="flex items-center rounded-full focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/40"
+      >
+        <CircleUserRound className="w-7 h-7 md:w-8 md:h-8 text-text-secondary hover:text-text-primary transition-colors duration-200" strokeWidth={1.75} />
       </button>
 
       {isOpen && (
-        <div className="absolute right-0 mt-2 w-48 bg-gray-700 border border-gray-600 rounded-lg shadow-lg z-50">
-          <ul className="py-2">
+        <div className="absolute right-0 z-50 mt-2 w-52 rounded-2xl border border-border bg-surface p-1.5 shadow-md animate-fadeIn">
+          <ul className="space-y-0.5">
             {optionsForUser.map((option) => (
               <li key={option.label}>
                 <Link
                   href={option.href}
-                  className="block px-4 py-2 text-sm text-white hover:bg-[#ff5e1a] hover:text-white transition-colors"
+                  className="block rounded-full px-3 py-2 text-sm font-medium text-text-secondary transition-colors hover:bg-brand-50 hover:text-brand-dark"
                   onClick={() => setIsOpen(false)}
                 >
                   {option.label}
                 </Link>
               </li>
             ))}
-            <li onClick={logout}>
-              <Link 
-                href="/logout" 
-                className="block px-4 py-2 text-sm text-white hover:bg-[#ff5e1a] hover:text-white transition-colors"
+            <li className="mt-1 border-t border-border pt-1" onClick={logout}>
+              <Link
+                href="/logout"
+                className="block rounded-full px-3 py-2 text-sm font-medium text-error transition-colors hover:bg-error-soft"
               >
                 Logout
               </Link>

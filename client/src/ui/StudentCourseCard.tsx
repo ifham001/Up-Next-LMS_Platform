@@ -47,73 +47,83 @@ const StudentCourseCard: React.FC<Props> = ({
     <> 
      <PopUpModal onClose={() => setPopUp(false)} isOpen={PopUp}>
         <div className="flex flex-col gap-4 p-3 sm:p-6">
-          <h1 className="text-base sm:text-lg font-semibold text-center">
-            Please add your name for your certificate
+          <h1 className="text-xl sm:text-2xl font-semibold tracking-tight text-text-primary">
+            Add your name
           </h1>
+          <p className="text-sm text-text-secondary -mt-2">
+            This is printed on your certificate exactly as typed.
+          </p>
           <TextInput
             state={[certificateName, setCertificateName]}
-            placeholder="Your Name"
+            placeholder="e.g. Priya Sharma"
             value={certificateName}
             label="Your name"
           />
           <Button
-            className="w-full"
+            fullWidth
             onClick={handleGenerate}
             disabled={!certificateName.trim()}
           >
-            Generate Certificate
+            Generate certificate
           </Button>
         </div>
       </PopUpModal>
 
-    <div className="min-w-[300px] max-w-[350px] rounded-xl overflow-hidden border bg-white shadow-sm flex-shrink-0">
-      <div className="bg-slate-800 text-white h-[180px] flex items-center justify-center text-center text-sm font-medium">
+    <div className="card-interactive group min-w-[300px] max-w-[350px] flex-shrink-0 overflow-hidden">
+      <div className="relative h-[180px] flex items-center justify-center overflow-hidden">
         <Image
           src={imageUrl || heroImage}
-          alt="Course"
+          alt={title}
           width={200}
           height={200}
-          className="w-full h-full object-cover"
+          className="w-full h-full object-cover transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.03]"
         />
+        {progress === 100 && (
+          <span className="chip absolute top-3 left-3 bg-surface text-success">
+            <BookOpenCheckIcon className="size-3" strokeWidth={1.75} /> Completed
+          </span>
+        )}
       </div>
 
-      <div className="p-4 space-y-3">
-        <h3 className="font-semibold text-lg leading-tight">{title}</h3>
-
-        <div className="text-sm text-muted-foreground flex items-center gap-2">
-          
-          <span>{tagline}</span>
-        </div>
-
-        <div className="flex items-center gap-2 text-sm mt-2">
-          <BookOpenCheckIcon className="w-4 h-4 text-primary" />
-         
+      <div className="p-5 space-y-4">
+        <div>
+          <h3 className="font-display text-base font-semibold leading-snug text-text-primary line-clamp-2">{title}</h3>
+          <p className="text-sm mt-1.5 leading-relaxed text-text-secondary">{tagline}</p>
         </div>
 
         {/* Progress Bar */}
-        <div className="mt-2">
-          <div className="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-300">
+        <div>
+          <div className="flex items-center justify-between mb-2">
+            <span className="text-xs font-medium text-text-secondary">Progress</span>
+            <p className="text-xs text-text-muted">
+              <span className="tnum font-medium text-text-primary">{progress}%</span> complete
+            </p>
+          </div>
+          <div className="bar-track w-full h-1.5">
             <div
-              className="bg-blue-600 h-2.5 rounded-full transition-all duration-300"
+              className="bar-fill h-1.5 transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]"
               style={{ width: `${progress}%` }}
             />
           </div>
-          <p className="text-xs text-right mt-1 text-muted-foreground">{progress}% completed</p>
         </div>
-        <div className="flex flex-col  justify-center">
-  <Button onClick={()=>courseHandler()} className='w-full bg-[#8c52ff]'>{progress?'Resume':'Start'}</Button>
-  {progress === 100 && (
-                  <Button
-                    className="w-full bg-[#8c52ff] text-red-500 text-sm sm:text-base py-2 sm:py-3"
-                    onClick={() => setPopUp(true)}
-                  >
-                    Download Certificate
-                  </Button>
-                )}
-</div>
+
+        <div className="flex flex-col gap-2.5 justify-center pt-1">
+          <Button fullWidth onClick={() => courseHandler()}>
+            {progress ? 'Resume' : 'Start'}
+          </Button>
+          {progress === 100 && (
+            <Button
+              variant="secondary"
+              fullWidth
+              onClick={() => setPopUp(true)}
+            >
+              Download certificate
+            </Button>
+          )}
+        </div>
 
       </div>
-    
+
     </div>
     </>
   );

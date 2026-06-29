@@ -1,5 +1,6 @@
 'use client';
 import React from 'react';
+import { Check } from 'lucide-react';
 
 const learningPoints = [
   'Build responsive websites with HTML5 and CSS3',
@@ -10,25 +11,27 @@ const learningPoints = [
   'Implement authentication and security best practices',
 ];
 interface Props {
-  benefits:string[]
+  benefits: string[];
 }
 
-const YouWillLearn = ({benefits}:Props) => {
-  
+const YouWillLearn = ({ benefits }: Props) => {
+  const points = benefits.length > 0 ? benefits : learningPoints;
+
   return (
-    <div className="bg-gray-50 p-4 rounded-xl grid grid-cols-1 md:grid-cols-2 gap-2">
-      {benefits.length >0 ?benefits.map((point, index) => (
-        <div key={index} className="flex items-start gap-2">
-          <span className="text-green-600 font-bold">✓</span>
-          <p>{point}</p>
-        </div>
-      )):learningPoints.map((point, index) => (
-        <div key={index} className="flex items-start gap-2">
-          <span className="text-green-600 font-bold">✓</span>
-          <p>{point}</p>
-        </div>
-      ))}
-    </div>
+    <section className="animate-fadeInUp space-y-5">
+      <h2 className="display text-2xl text-text-primary">What you&apos;ll learn</h2>
+      <ul className="grid grid-cols-1 gap-x-8 gap-y-3 md:grid-cols-2">
+        {points.map((point, index) => (
+          <li key={index} className="flex items-start gap-3 leading-relaxed text-text-secondary">
+            <Check
+              strokeWidth={1.75}
+              className="mt-0.5 h-5 w-5 flex-shrink-0 text-success"
+            />
+            <span>{point}</span>
+          </li>
+        ))}
+      </ul>
+    </section>
   );
 };
 

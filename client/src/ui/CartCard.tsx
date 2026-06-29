@@ -16,17 +16,17 @@ type CartCardProps = {
 export default function CartCard({ item, miniCart = false, onRemove }: CartCardProps) {
   return (
     <div
-      className={`flex items-center bg-white rounded-xl shadow-sm ${
+      className={`group card-interactive flex items-center ${
         miniCart ? "p-3" : "p-4"
       }`}
     >
       <div
-        className={`bg-gray-100 rounded-lg overflow-hidden flex-shrink-0 ${
+        className={`rounded-md overflow-hidden flex-shrink-0 border border-border ${
           miniCart ? "w-20 h-16" : "w-28 h-20"
         }`}
       >
         <Image
-          className="w-full h-full object-cover"
+          className="w-full h-full object-cover transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.03]"
           src={item.url}
           alt={item.title}
           width={500}
@@ -34,29 +34,31 @@ export default function CartCard({ item, miniCart = false, onRemove }: CartCardP
         />
       </div>
 
-      <div className={`${miniCart ? "ml-3" : "ml-4"} flex-1`}>
+      <div className={`${miniCart ? "ml-3" : "ml-4"} flex-1 min-w-0`}>
         <h2
-          className={`text-gray-700 font-semibold ${
+          className={`font-display font-semibold text-text-primary truncate ${
             miniCart ? "text-sm" : "text-base"
           }`}
         >
           {item.title}
         </h2>
-        <p className={`text-gray-500 ${miniCart ? "text-xs" : "text-sm"}`}>
+        <p className={`text-text-muted truncate ${miniCart ? "text-xs" : "text-sm"}`}>
           By {item.tagline}
         </p>
-        <p
-          className={`text-gray-700 font-bold mt-1 ${
+        <span
+          className={`font-display tnum font-semibold text-text-primary mt-1.5 block ${
             miniCart ? "text-sm" : "text-base"
           }`}
         >
           ₹ {item.price}
-        </p>
+        </span>
       </div>
 
       {!miniCart && (
         <Button
-          className="bg-red-900 ml-2"
+          variant="danger"
+          size="sm"
+          className="ml-2"
           onClick={() => onRemove && onRemove(item.id)}
         >
           Remove

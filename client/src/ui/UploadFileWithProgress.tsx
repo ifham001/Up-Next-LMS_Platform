@@ -124,19 +124,19 @@ const UploadWithProgress: React.FC<UploadWithProgressProps> = ({
   return (
     
       <div
-        className={`p-6 border-2 rounded-2xl shadow-lg w-full max-w-lg transition-all duration-300
+        className={`p-6 border rounded-xl shadow-sm w-full max-w-lg transition-all duration-200
           ${
             video
-              ? "bg-blue-50 border-blue-300 ring-2 ring-blue-200"
+              ? "bg-brand-50 border-brand"
               : thumbnail
-              ? "bg-green-50 border-green-300 ring-2 ring-green-200"
-              : "bg-white border-gray-200"
+              ? "bg-success-soft border-success"
+              : "bg-surface border-border"
           }`}
       >
         {/* Type Label */}
         <p
           className={`text-sm font-semibold mb-2 ${
-            video ? "text-blue-600" : thumbnail ? "text-green-600" : "text-gray-700"
+            video ? "text-brand" : thumbnail ? "text-success" : "text-text-secondary"
           }`}
         >
           {video ? "🎥 Upload a Video" : thumbnail ? "🖼️ Upload a Thumbnail" : "📁 Upload File"}
@@ -148,13 +148,13 @@ const UploadWithProgress: React.FC<UploadWithProgressProps> = ({
             type="file"
             accept={video ? "video/*" : thumbnail ? "image/*" : "*"}
             onChange={handleFileChange}
-            className="flex-1 border border-gray-300 rounded-lg p-2 text-sm bg-white"
+            className="flex-1 border border-input-border rounded-lg p-2 text-sm bg-input-bg text-text-primary file:mr-3 file:rounded-md file:border-0 file:bg-surface-muted file:px-3 file:py-1.5 file:text-sm file:font-medium file:text-text-secondary"
           />
           <button
             onClick={uploadFile}
             disabled={uploading}
-            className={`flex items-center gap-2 px-4 py-2 rounded-lg text-white transition 
-              ${uploading ? "bg-gray-400 cursor-not-allowed" : "bg-blue-600 hover:bg-blue-700"}`}
+            className={`inline-flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-semibold text-text-inverted shadow-sm transition-all duration-150 active:scale-[0.97]
+              ${uploading ? "bg-text-muted cursor-not-allowed" : "bg-brand hover:bg-brand-dark hover:shadow-md"}`}
           >
             <Upload className="w-5 h-5" />
             Upload
@@ -165,29 +165,29 @@ const UploadWithProgress: React.FC<UploadWithProgressProps> = ({
         {file && (
           <div className="mt-4">
             <div className="flex justify-between items-center">
-              <p className="text-sm text-gray-600 truncate">📄 {file.name}</p>
+              <p className="text-sm text-text-secondary truncate">📄 {file.name}</p>
               <button
                 onClick={removeFile}
-                className="text-red-600 text-sm hover:underline"
+                className="text-error text-sm font-medium hover:underline"
               >
                 Remove
               </button>
             </div>
-  
+
             {/* Preview */}
             {video && file.type.startsWith("video/") && (
               <video
                 src={URL.createObjectURL(file)}
                 controls
-                className="mt-2 rounded-lg w-full max-h-64 object-contain border border-gray-300"
+                className="mt-2 rounded-lg w-full max-h-64 object-contain border border-border"
               />
             )}
-  
+
             {thumbnail && file.type.startsWith("image/") && (
               <img
                 src={URL.createObjectURL(file)}
                 alt="thumbnail preview"
-                className="mt-2 rounded-lg w-full max-h-64 object-contain border border-gray-300"
+                className="mt-2 rounded-lg w-full max-h-64 object-contain border border-border"
               />
             )}
           </div>
@@ -196,19 +196,19 @@ const UploadWithProgress: React.FC<UploadWithProgressProps> = ({
         {/* Progress bar */}
         {uploading && (
           <div className="mt-4">
-            <div className="w-full bg-gray-200 rounded-full h-3 overflow-hidden">
+            <div className="bar-track h-2 w-full">
               <div
-                className="bg-gradient-to-r from-blue-500 to-indigo-500 h-3 transition-all duration-300"
+                className="bar-fill h-2 transition-all duration-300"
                 style={{ width: `${progress}%` }}
               />
             </div>
-            <p className="mt-1 text-sm font-medium text-gray-700">{progress}%</p>
+            <p className="mt-1.5 text-sm font-medium text-text-secondary tnum">{progress}%</p>
           </div>
         )}
-  
+
         {/* Status message */}
         {status && (
-          <p className="mt-3 text-sm font-medium text-gray-700">{status}</p>
+          <p className="mt-3 text-sm font-medium text-text-secondary">{status}</p>
         )}
       </div>
     );
